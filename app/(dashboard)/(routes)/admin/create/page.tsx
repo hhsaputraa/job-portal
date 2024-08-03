@@ -1,13 +1,15 @@
 "use client";
 
-import { FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { FormControl, FormField, FormItem, FormLabel, Form, FormDescription, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { Form, useForm } from "react-hook-form";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const formSchema = z.object({
+  // ganti text munculkan jika judul kerjaan tidak diisi
   title: z.string().min(1, { message: "job Title cannot be empty" }),
 });
 
@@ -18,6 +20,8 @@ const JobCreatePage = () => {
       title: "",
     },
   });
+
+  const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
@@ -33,6 +37,30 @@ const JobCreatePage = () => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mt-8">
             {/* form field */}
+            <FormField
+              control={form.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>job title</FormLabel>
+                  <FormControl>
+                    <Input disabled={isSubmitting} placeholder="e.gsss" {...field} />
+                  </FormControl>
+                  <FormDescription>role of this job</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="flex items-center gap-x-2">
+              <Link href={"/"}>
+                <Button type="button" variant={"ghost"}>
+                  Cancel
+                </Button>
+              </Link>
+              <Button type="submit" disabled={!isValid || isSubmitting}>
+                Continue
+              </Button>
+            </div>
           </form>
         </Form>
       </div>
