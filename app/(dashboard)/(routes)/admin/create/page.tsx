@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import axios from "axios";
 
 const formSchema = z.object({
   // ganti text munculkan jika judul kerjaan tidak diisi
@@ -24,7 +25,13 @@ const JobCreatePage = () => {
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    try {
+      const response = await axios.post("/api/jobs", values);
+      console.log(response);
+    } catch (error) {
+      console.log((error as Error)?.message);
+      //toast notif
+    }
   };
 
   return (
