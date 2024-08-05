@@ -8,6 +8,8 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   // ganti text munculkan jika judul kerjaan tidak diisi
@@ -23,11 +25,13 @@ const JobCreatePage = () => {
   });
 
   const { isSubmitting, isValid } = form.formState;
+  const router = useRouter();
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const response = await axios.post("/api/jobs", values);
-      console.log(response);
+      router.push(`/admin/jobs/${response.data.id}`);
+      toast.success("Job Created");
     } catch (error) {
       console.log((error as Error)?.message);
       //toast notif
@@ -59,7 +63,7 @@ const JobCreatePage = () => {
               )}
             />
             <div className="flex items-center gap-x-2">
-              <Link href={"/"}>
+              <Link href={"/admin/jobs"}>
                 <Button type="button" variant={"ghost"}>
                   Cancel
                 </Button>
