@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import JobPublishAction from "./_components/job-publish-action";
+import Banner from "@/components/Banner";
 
 const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
   const validObjectIdRegex = /^[0-9a-fA-F] {24}$/;
@@ -51,6 +52,10 @@ const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
         {/* action button */}
         <JobPublishAction jobId={params.jobId} isPublished={job.isPublished} disable={!isComplete} />
       </div>
+
+      {/* Warning before publishing */}
+
+      {!job.isPublished && <Banner variant={"success"} label="this job is unpublished. It will not be visible in the jobs list" />}
     </div>
   );
 };
