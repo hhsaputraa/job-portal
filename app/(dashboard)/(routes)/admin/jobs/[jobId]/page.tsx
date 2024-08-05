@@ -7,7 +7,7 @@ import JobPublishAction from "./_components/job-publish-action";
 import Banner from "@/components/Banner";
 
 const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
-  const validObjectIdRegex = /^[0-9a-fA-F] {24}$/;
+  const validObjectIdRegex = /^[0-9a-fA-F]{24}$/;
   if (!validObjectIdRegex.test(params.jobId)) {
     return redirect("/admin/jobs");
   }
@@ -55,7 +55,7 @@ const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
 
       {/* Warning before publishing */}
 
-      {!job.isPublished && <Banner variant={"success"} label="this job is unpublished. It will not be visible in the jobs list" />}
+      {!job.isPublished && <Banner variant={"warning"} label="this job is unpublished. It will not be visible in the jobs list" />}
     </div>
   );
 };
