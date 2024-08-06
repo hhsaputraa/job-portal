@@ -59,7 +59,7 @@ const CategoryForm = ({ initialData, jobId, options }: CategoryFormProps) => {
         job category
         <Button onClick={toggleEditing} variant={"ghost"}>
           {isEditing ? (
-            <>Cancel</>
+            <>Batal</>
           ) : (
             <>
               <Pencil className="w-4 h-4 mr-2" />
@@ -80,7 +80,7 @@ const CategoryForm = ({ initialData, jobId, options }: CategoryFormProps) => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <ComboBox heading="Categories" options={options} {...field} />
+                    <ComboBox options={options} heading="Categories" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
