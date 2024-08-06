@@ -5,7 +5,7 @@ import { LucideIcon } from "lucide-react";
 const backgroundVariant = cva("rounded-full flex items-center justify-center", {
   variants: {
     variant: {
-      default: "bg-purple-100",
+      default: "bg-customGreen-100",
       success: "bg-emerald-100",
     },
     size: {
@@ -22,7 +22,7 @@ const backgroundVariant = cva("rounded-full flex items-center justify-center", {
 const iconVariants = cva("", {
   variants: {
     variant: {
-      default: "bg-purple-700",
+      default: "bg-white-700",
       success: "bg-emerald-700",
     },
     size: {
@@ -43,10 +43,12 @@ interface IconBadgeProps extends BackgroundVariantProps, iconVariantsProps {
   icon: LucideIcon;
 }
 
-import React from "react";
-
 const IconBadge = ({ icon: Icon, variant, size }: IconBadgeProps) => {
-  return <div>tes</div>;
+  return (
+    <div className={cn(backgroundVariant({ variant, size }))}>
+      <Icon className={cn(iconVariants({ variant, size }))} />
+    </div>
+  );
 };
 
 export default IconBadge;
