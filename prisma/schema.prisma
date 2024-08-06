@@ -28,6 +28,19 @@ model Job{
   hourlyRate String?
   yearsOfExperience String?
   workMode String?
+  categoryId String? @db.ObjectId
+  category Category? @relation(fields: [categoryId], references: [id])
+  CreatedAt DateTime @default(now())
+  UpdateAt DateTime @default(now())
+  @@index([categoryId])
+
+}
+
+
+model Category{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String @unique
+  jobs Job[]
   CreatedAt DateTime @default(now())
   UpdateAt DateTime @default(now())
 
