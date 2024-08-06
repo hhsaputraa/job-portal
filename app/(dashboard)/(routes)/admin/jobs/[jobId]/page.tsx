@@ -55,7 +55,15 @@ const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
 
       {/* Warning before publishing */}
 
-      {!job.isPublished && <Banner variant={"warning"} label="this job is unpublished. It will not be visible in the jobs list" />}
+      {!job.isPublished && <Banner variant={"warning"} label="this job is unpublish" />}
+
+      {/* container layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
+        <div>
+          {/* title */}
+          <div className="flex items-center gap-x-2"></div>
+        </div>
+      </div>
     </div>
   );
 };
