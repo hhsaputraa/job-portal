@@ -1,10 +1,11 @@
 "use client";
 
 import { storage } from "@/config/firebase.config";
-import { ref, uploadBytesResumable } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { ImagePlus } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 interface ImageUploadProps {
   disabled?: boolean;
@@ -15,7 +16,7 @@ interface ImageUploadProps {
 const ImageUpload = ({ disabled, onChange, onRemove, value }: ImageUploadProps) => {
   const [isMounted, setisMounted] = useState(false);
   const [isLoading, setisLoading] = useState(false);
-  const [progress, setproses] = useState<number>(0);
+  const [progress, setProgress] = useState<number>(0);
 
   useEffect(() => {
     setisMounted(true);
@@ -30,7 +31,25 @@ const ImageUpload = ({ disabled, onChange, onRemove, value }: ImageUploadProps) 
     const file: File = e.target.files[0];
     setisLoading(true);
     const uploadTask = uploadBytesResumable(ref(storage, `JobCoverImages/${Date.now()}-${file?.name}`), file, { contentType: file?.type });
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      },
+      (error) => {
+        toast.error(error.message);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
+          onChange(downloadUrl);
+          setisLoading(false);
+          toast.success("Image Uploaded");
+        });
+      }
+    );
   };
+
   return (
     <div>
       {value ? (
