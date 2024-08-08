@@ -8,6 +8,7 @@ import Banner from "@/components/Banner";
 import IconBadge from "@/components/icon-badge";
 import TitleForm from "./_components/title-form";
 import CategoryForm from "./_components/category-form";
+import ImageForm from "./_components/image-form";
 
 const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
   const validObjectIdRegex = /^[0-9a-fA-F]{24}$/;
@@ -86,6 +87,10 @@ const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
               value: category.id,
             }))}
           />
+
+          {/* cover image */}
+
+          <ImageForm initialData={job} jobId={job.id} />
         </div>
       </div>
     </div>
