@@ -1,11 +1,12 @@
 "use client";
 
 import { storage } from "@/config/firebase.config";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { ImagePlus } from "lucide-react";
+import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { ImagePlus, Trash } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { Button } from "./ui/button";
 
 interface ImageUploadProps {
   disabled?: boolean;
@@ -50,12 +51,24 @@ const ImageUpload = ({ disabled, onChange, onRemove, value }: ImageUploadProps) 
     );
   };
 
+  const onDelete = () => {
+    onRemove(value);
+    deleteObject(ref(storage, value)).then(() => {
+      toast.success("Image Removed");
+    });
+  };
+
   return (
     <div>
       {value ? (
         <>
           <div className="w-full h-60 aspect-video relative rounded-md flex items-center justify-center overflow-hidden">
             <Image fill className="w-full h-full object-cover" alt="image cover" src={value} />
+            <div className="absolute z-10 top-2 right-2 cursor-pointer" onClick={onDelete}>
+              <Button size="icon" variant="destructive">
+                <Trash className="w-4 h-4" />
+              </Button>
+            </div>
           </div>
         </>
       ) : (
