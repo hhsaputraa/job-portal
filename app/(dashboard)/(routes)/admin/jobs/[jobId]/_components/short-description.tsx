@@ -1,11 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import ComboBox from "@/components/ui/combo-box";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
+import getGenerativeAIResponse from "@/scripts/aistudio";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Job } from "@prisma/client";
 import axios from "axios";
@@ -53,7 +51,19 @@ const ShortDescription = ({ initialData, jobId }: ShortDescriptionProps) => {
 
   const toggleEditing = () => setisEditing((current) => !current);
 
-  const handlePromptGeneration = async () => {};
+  const handlePromptGeneration = async () => {
+    try {
+      setisPrompting(true);
+      const customPrompt = `bisakah Anda membuat deskripsi pekerjaan yang ringkas untuk posisi ${prompt} dalam kurang dari 400 karakter? , serta rapihkan deskripsi ringkas tersebut dengan tampilan poin - poin`;
+      await getGenerativeAIResponse(customPrompt).then((data) => {
+        form.setValue("short_description", data);
+        setisPrompting(false);
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("something went error");
+    }
+  };
 
   return (
     <div className="mt-6 border bg-neutral-100 rounded-md p-4">
