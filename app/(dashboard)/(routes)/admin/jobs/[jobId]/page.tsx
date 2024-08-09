@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-import { ArrowLeft, LayoutDashboard } from "lucide-react";
+import { ArrowLeft, LayoutDashboard, ListCheck } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import JobPublishAction from "./_components/job-publish-action";
@@ -15,6 +15,7 @@ import GajiForm from "./_components/gaji-form";
 import WorkModeForm from "./_components/work-mode-form";
 import WorkExperienceForm from "./_components/work-experience";
 import JobDescription from "./_components/job-description";
+import TagsForm from "./_components/tags-form";
 
 const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
   const validObjectIdRegex = /^[0-9a-fA-F]{24}$/;
@@ -116,7 +117,16 @@ const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
         </div>
 
         {/* right container */}
-        <div></div>
+        <div>
+          <div>
+            <div className="flex items-center gap-x-2">
+              <IconBadge icon={ListCheck} />
+              <h2 className="text-xl text-neutral-700">Job Requirement</h2>
+            </div>
+
+            <TagsForm initialData={job} jobId={job.id} />
+          </div>
+        </div>
 
         {/* description */}
         <div className="col-span-2">
