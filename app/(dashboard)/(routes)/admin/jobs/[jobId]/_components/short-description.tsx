@@ -54,7 +54,7 @@ const ShortDescription = ({ initialData, jobId }: ShortDescriptionProps) => {
   const handlePromptGeneration = async () => {
     try {
       setisPrompting(true);
-      const customPrompt = `bisakah Anda membuat deskripsi pekerjaan yang ringkas untuk posisi ${prompt} dalam kurang dari 400 karakter? , serta rapihkan deskripsi ringkas tersebut dengan tampilan poin - poin`;
+      const customPrompt = `bisakah Anda membuat deskripsi pekerjaan yang ringkas untuk posisi ${prompt} dalam kurang dari 400 karakter?`;
       await getGenerativeAIResponse(customPrompt).then((data) => {
         form.setValue("short_description", data);
         setisPrompting(false);

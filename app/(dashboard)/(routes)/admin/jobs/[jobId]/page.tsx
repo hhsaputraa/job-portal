@@ -10,6 +10,10 @@ import TitleForm from "./_components/title-form";
 import CategoryForm from "./_components/category-form";
 import ImageForm from "./_components/image-form";
 import ShortDescription from "./_components/short-description";
+import ShiftTimingForm from "./_components/shift-timing-model";
+import GajiForm from "./_components/gaji-form";
+import WorkModeForm from "./_components/work-mode-form";
+import WorkExperienceForm from "./_components/work-experience";
 
 const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
   const validObjectIdRegex = /^[0-9a-fA-F]{24}$/;
@@ -95,6 +99,17 @@ const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
 
           {/* short desc job */}
           <ShortDescription initialData={job} jobId={job.id} />
+
+          {/* shift time */}
+          <ShiftTimingForm initialData={job} jobId={job.id} />
+
+          {/* gaji form */}
+          <GajiForm initialData={job} jobId={job.id} />
+
+          {/* tipe form */}
+          <WorkModeForm initialData={job} jobId={job.id} />
+          {/* pengalaman kerja form */}
+          <WorkExperienceForm initialData={job} jobId={job.id} />
         </div>
       </div>
     </div>
