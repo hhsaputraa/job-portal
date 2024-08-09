@@ -34,12 +34,12 @@ let options = [
     label: "lebih dari 6 juta",
   },
   {
-    value: "secret",
-    label: "Diinformasikan setelah proses rekrutmen",
-  },
-  {
     value: "secompetitive",
     label: "Gaji Kompetitif",
+  },
+  {
+    value: "secret",
+    label: "Diinformasikan setelah proses rekrutmen",
   },
 ];
 

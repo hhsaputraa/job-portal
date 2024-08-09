@@ -14,6 +14,7 @@ import ShiftTimingForm from "./_components/shift-timing-model";
 import GajiForm from "./_components/gaji-form";
 import WorkModeForm from "./_components/work-mode-form";
 import WorkExperienceForm from "./_components/work-experience";
+import JobDescription from "./_components/job-description";
 
 const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
   const validObjectIdRegex = /^[0-9a-fA-F]{24}$/;
@@ -72,6 +73,7 @@ const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
 
       {/* container layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
+        {/* left container */}
         <div>
           {/* title */}
           <div className="flex items-center gap-x-2">
@@ -108,8 +110,17 @@ const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
 
           {/* tipe form */}
           <WorkModeForm initialData={job} jobId={job.id} />
+
           {/* pengalaman kerja form */}
           <WorkExperienceForm initialData={job} jobId={job.id} />
+        </div>
+
+        {/* right container */}
+        <div></div>
+
+        {/* description */}
+        <div className="col-span-2">
+          <JobDescription initialData={job} jobId={job.id} />
         </div>
       </div>
     </div>
