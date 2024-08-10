@@ -1,8 +1,40 @@
 import { Button } from "@/components/ui/button";
+import { DataTable } from "@/components/ui/data-table";
 import { Plus } from "lucide-react";
 import Link from "next/link";
+import { columns, JobsColumns } from "./_components/columns";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import { db } from "@/lib/db";
+import { format } from "date-fns";
 
 const JobsPageOverview = async () => {
+  const { userId } = auth();
+  if (!userId) {
+    return redirect("/");
+  }
+
+  const jobs = await db.job.findMany({
+    where: {
+      userId,
+    },
+    include: {
+      category: true,
+    },
+    orderBy: {
+      CreatedAt: "desc",
+    },
+  });
+
+  const formattedJobs: JobsColumns[] = jobs.map((job) => ({
+    id: job.id,
+    title: job.title,
+    company: "",
+    category: job.category ? job.category.name : "N/A",
+    isPublished: job.isPublished,
+    createdAt: job.CreatedAt ? format(job.CreatedAt.toLocaleDateString(), "MMMM do, yyyy") : "N/A",
+  }));
+
   return (
     <div className="p-6">
       <div className="flex items-end justify-end">
@@ -15,6 +47,9 @@ const JobsPageOverview = async () => {
       </div>
 
       {/* Datatable - list of job */}
+      <div className="mt-6">
+        <DataTable columns={columns} data={formattedJobs} />
+      </div>
     </div>
   );
 };
