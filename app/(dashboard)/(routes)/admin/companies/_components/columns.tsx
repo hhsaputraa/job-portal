@@ -55,16 +55,10 @@ export const columns: ColumnDef<CompanyColums>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <Link href={`/admin/jobs/${id}`}>
+            <Link href={`/admin/companies/${id}`}>
               <DropdownMenuItem>
                 <Pencil className="w-4 h-4 mr-2" />
                 Edit
-              </DropdownMenuItem>
-            </Link>
-            <Link href={`/admin/jobs/${id}/applicants`}>
-              <DropdownMenuItem>
-                <Eye className="w-4 h-4 mr-2" />
-                Applicant
               </DropdownMenuItem>
             </Link>
           </DropdownMenuContent>

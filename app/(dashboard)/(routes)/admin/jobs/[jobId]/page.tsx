@@ -117,7 +117,7 @@ const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
         </div>
 
         {/* right container */}
-        <div>
+        <div className="space-y-6">
           <div>
             <div className="flex items-center gap-x-2">
               <IconBadge icon={ListCheck} />
