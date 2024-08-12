@@ -1,37 +1,37 @@
 "use client";
 
+import ImageUpload from "@/components/image-upload";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Company } from "@prisma/client";
 import axios from "axios";
-import { Pencil } from "lucide-react";
+import { ImageIcon, Pencil } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 
-interface CompanyDescriptionFormProps {
+interface CompanyCoverImageFormProps {
   initialData: Company;
   companyId: string;
 }
 
 const formSchema = z.object({
-  description: z.string().min(1, { message: "description is required" }),
+  coverImage: z.string().min(1),
 });
 
-const CompanyDescriptionForm = ({ initialData, companyId }: CompanyDescriptionFormProps) => {
+const CompanyCoverImageForm = ({ initialData, companyId }: CompanyCoverImageFormProps) => {
   const [isEditing, setisEditing] = useState(false);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      description: initialData?.description || "",
+      coverImage: initialData?.coverImage || "",
     },
   });
 
@@ -40,7 +40,7 @@ const CompanyDescriptionForm = ({ initialData, companyId }: CompanyDescriptionFo
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const response = await axios.patch(`/api/companies/${companyId}`, values);
-      toast.success("company update");
+      toast.success("job update");
       toggleEditing();
       router.refresh();
     } catch (error) {
@@ -53,31 +53,40 @@ const CompanyDescriptionForm = ({ initialData, companyId }: CompanyDescriptionFo
     <div className="mt-6 border bg-neutral-100 rounded-md p-4">
       {" "}
       <div className="font-medium flex items-center justify-between">
-        company description
+        company Cover Image
         <Button onClick={toggleEditing} variant={"ghost"}>
           {isEditing ? (
             <>Cancel</>
           ) : (
             <>
               <Pencil className="w-4 h-4 mr-2" />
-              edit name
+              edit image
             </>
           )}
         </Button>
       </div>
-      {/*  display the name if not editing*/}
-      {!isEditing && <p className={cn("text-sm mt-2", !initialData.description && "text-neutral-500 italic")}>{initialData.description || "No Description"}</p>}
+      {/*  display the coverImage if not editing*/}
+      {!isEditing &&
+        (!initialData.coverImage ? (
+          <div className="flex items-center justify-center h-60 bg-neutral-200 rounded-md">
+            <ImageIcon className="h-10 w-10 text-neutral-500" />
+          </div>
+        ) : (
+          <div className="relative w-full h-60 aspect-video mt-2">
+            <Image alt="Cover coverImage" fill className="w-full h-full object-cover" src={initialData?.coverImage} />
+          </div>
+        ))}
       {/* on editing mode display the input */}
       {isEditing && (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
             <FormField
               control={form.control}
-              name="description"
+              name="coverImage"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Textarea disabled={isSubmitting} placeholder="e.g 'deskripsi perusahaan anda'" {...field} />
+                    <ImageUpload value={field.value} disabled={isSubmitting} onChange={(url) => field.onChange(url)} onRemove={() => field.onChange("")} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -96,4 +105,4 @@ const CompanyDescriptionForm = ({ initialData, companyId }: CompanyDescriptionFo
   );
 };
 
-export default CompanyDescriptionForm;
+export default CompanyCoverImageForm;

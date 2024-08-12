@@ -2,11 +2,14 @@ import Banner from "@/components/Banner";
 import IconBadge from "@/components/icon-badge";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-import { ArrowLeft, LayoutDashboard, ListCheck } from "lucide-react";
+import { ArrowLeft, LayoutDashboard, ListCheck, Network } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import CompanyName from "./name-form";
 import CompanyDescriptionForm from "./description-form";
+import CompanyLogoForm from "./logo-form";
+import CompanySocialContactForm from "./social-contact-form";
+import CompanyCoverImageForm from "./cover-image-form";
 
 const CompanyEditPage = async ({ params }: { params: { companyId: string } }) => {
   const validObjectIdRegex = /^[0-9a-fA-F]{24}$/;
@@ -72,10 +75,23 @@ const CompanyEditPage = async ({ params }: { params: { companyId: string } }) =>
           <CompanyName initialData={company} companyId={company.id} />
           {/* description form */}
           <CompanyDescriptionForm initialData={company} companyId={company.id} />
+          {/* Company Logo Form */}
+          <CompanyLogoForm initialData={company} companyId={company.id} />
         </div>
 
         {/* right container */}
-        <div className="space-y-6"></div>
+        <div className="space-y-6">
+          <div>
+            <div className="flex items-center gap-x-2 ">
+              <IconBadge icon={Network} />
+              <h2 className="text-xl">Company Social Contacts</h2>
+            </div>
+            {/* social form */}
+            <CompanySocialContactForm initialData={company} companyId={company.id} />
+            {/* Company Logo Form */}
+            <CompanyCoverImageForm initialData={company} companyId={company.id} />
+          </div>
+        </div>
       </div>
     </div>
   );
