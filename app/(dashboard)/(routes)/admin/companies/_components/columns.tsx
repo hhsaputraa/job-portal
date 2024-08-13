@@ -6,6 +6,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { ArrowUpDown, Eye, MoreHorizontal, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -20,6 +21,14 @@ export const columns: ColumnDef<CompanyColums>[] = [
   {
     accessorKey: "logo",
     header: "Logo",
+    cell: ({ row }) => {
+      const { logo } = row.original;
+      return (
+        <div className="w-20 h-20 flex items-center justify-center relative rounded-md overflow-hidden ">
+          <Image src={logo} alt="logo" className="w-full h-full object-contain" fill />
+        </div>
+      );
+    },
   },
   {
     accessorKey: "name",
