@@ -17,6 +17,7 @@ import WorkExperienceForm from "./_components/work-experience";
 import JobDescription from "./_components/job-description";
 import TagsForm from "./_components/tags-form";
 import CompanyForm from "./_components/company-form";
+import AttachmentsForm from "./_components/attachments-form";
 
 const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
   const validObjectIdRegex = /^[0-9a-fA-F]{24}$/;
@@ -34,6 +35,13 @@ const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
     where: {
       id: params.jobId,
       userId,
+    },
+    include: {
+      attachments: {
+        orderBy: {
+          CreatedAt: "desc",
+        },
+      },
     },
   });
 
@@ -155,6 +163,10 @@ const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
           <div className="flex items-center gap-x-2">
             <IconBadge icon={File} />
             <h2 className="text-xl text-neutral-700">Job attachements</h2>
+          </div>
+          {/* attachments form */}
+          <div className="col-span-2">
+            <AttachmentsForm initialData={job} jobId={job.id} />
           </div>
         </div>
 

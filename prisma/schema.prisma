@@ -32,11 +32,22 @@ model Job{
   category Category? @relation(fields: [categoryId], references: [id])
   companyId String? @db.ObjectId
   company Company? @relation( fields: [companyId], references: [id])
+  attachments Attachment[]
   CreatedAt DateTime @default(now())
   UpdateAt DateTime @default(now())
   @@index([categoryId])
   @@index([companyId])
 
+}
+
+model Attachment {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  url String
+  name String
+  jobId String @db.ObjectId
+  job Job? @relation(fields: [jobId], references: [id])
+  CreatedAt DateTime @default(now())
+  UpdateAt DateTime @default(now())
 }
 
 model Company {
