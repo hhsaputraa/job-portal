@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Attachment, Job } from "@prisma/client";
 import axios from "axios";
-import { ImageIcon, Pencil } from "lucide-react";
+import { File, ImageIcon, Pencil, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -53,9 +53,10 @@ const AttachmentsForm = ({ initialData, jobId }: AttachmentsFormProps) => {
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log(values);
     try {
-      const response = await axios.patch(`/api/jobs/${jobId}`, values);
-      toast.success("job update");
+      const response = await axios.post(`/api/jobs/${jobId}/attachments`, values);
+      toast.success("job attachments update");
       toggleEditing();
       router.refresh();
     } catch (error) {
@@ -81,7 +82,19 @@ const AttachmentsForm = ({ initialData, jobId }: AttachmentsFormProps) => {
         </Button>
       </div>
       {/*  display the attachments if not editing*/}
-      {!isEditing && <></>}
+      {!isEditing && (
+        <>
+          {initialData.attachments.map((item) => (
+            <div key={item.url} className="flex items-center p-3 w-full bg-customGreen-100 border-customGreen-200 border text-customGreen-700 rounded-md">
+              <File className="w-4 h-4 mr-2 " />
+              <p className="text-xs w-full truncate">{item.name}</p>
+              <Button variant={"ghost"} size={"icon"} className="p-1" onClick={() => {}} type="button">
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+          ))}
+        </>
+      )}
       {/* on editing mode display the input */}
       {isEditing && (
         <Form {...form}>
