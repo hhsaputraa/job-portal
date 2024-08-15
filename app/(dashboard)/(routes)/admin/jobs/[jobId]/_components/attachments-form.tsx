@@ -71,7 +71,7 @@ const AttachmentsForm = ({ initialData, jobId }: AttachmentsFormProps) => {
     try {
       setdeletingId(attachment.id);
 
-      // Update local state to immediately remove the deleted item from UI
+      // Update local state to immediately remove the deleted item from UI sip
       form.setValue(
         "attachments",
         form.getValues("attachments").filter((item) => item.url !== attachment.url)
