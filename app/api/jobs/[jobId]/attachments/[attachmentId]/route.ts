@@ -37,7 +37,7 @@ export const DELETE = async (
       return new NextResponse("Attachment not found", { status: 404 });
     }
 
-    //delete from firebase storage
+    //delete from firebase storage teststartaroiaehrioeahrioe
     const storageRef = ref(storage, attachment.url);
     await deleteObject(storageRef);
 
