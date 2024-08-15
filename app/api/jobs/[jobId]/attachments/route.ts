@@ -27,6 +27,22 @@ export const POST = async (req: Request, { params }: { params: { jobId: string }
     for (const attachment of attachments) {
       const { url, name } = attachment;
 
+      //check the attachment with the same url is already exist for this job id
+
+      const existingAttachment = await db.attachment.findFirst({
+        where: {
+          jobId,
+          url,
+        },
+      });
+
+      if (existingAttachment) {
+        //skip the insertion
+        continue;
+      }
+
+      //create a new attachment
+
       const createdAttachment = await db.attachment.create({
         data: {
           url,

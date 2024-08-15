@@ -83,7 +83,7 @@ const AttachmentsForm = ({ initialData, jobId }: AttachmentsFormProps) => {
       </div>
       {/*  display the attachments if not editing*/}
       {!isEditing && (
-        <>
+        <div className="space-y-2">
           {initialData.attachments.map((item) => (
             <div key={item.url} className="flex items-center p-3 w-full bg-customGreen-100 border-customGreen-200 border text-customGreen-700 rounded-md">
               <File className="w-4 h-4 mr-2 " />
@@ -93,7 +93,7 @@ const AttachmentsForm = ({ initialData, jobId }: AttachmentsFormProps) => {
               </Button>
             </div>
           ))}
-        </>
+        </div>
       )}
       {/* on editing mode display the input */}
       {isEditing && (
@@ -105,7 +105,15 @@ const AttachmentsForm = ({ initialData, jobId }: AttachmentsFormProps) => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <AttachmentsUploads value={field.value} disabled={isSubmitting} onChange={(attachements) => field.onChange(attachements.map((item) => item))} onRemove={() => field.onChange("")} />
+                    <AttachmentsUploads
+                      value={field.value}
+                      disabled={isSubmitting}
+                      onChange={(attachments) => {
+                        if (attachments) {
+                          onSubmit({ attachments });
+                        }
+                      }}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
