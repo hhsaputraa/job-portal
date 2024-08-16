@@ -7,13 +7,35 @@ interface JobPublishActionProps {
 }
 
 import { Button } from "@/components/ui/button";
+import axios from "axios";
 import { Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const JobPublishAction = ({ disable, jobId, isPublished }: JobPublishActionProps) => {
   const [isLoading, setisLoading] = useState(false);
+  const router = useRouter();
 
-  const onClick = () => {};
+  const onClick = async () => {
+    try {
+      setisLoading(true);
+      if (isPublished) {
+        //unpublish the job
+        await axios.patch(`/api/jobs/${jobId}/unpublish`);
+        toast.success("job Un-Published");
+      } else {
+        await axios.patch(`/api/jobs/${jobId}/publish`);
+        toast.success("job Published");
+      }
+      router.refresh();
+    } catch (error) {
+      toast.error("Something went Wrong");
+      console.log((error as Error)?.message);
+    } finally {
+      setisLoading(false);
+    }
+  };
   const onDelete = () => {};
   return (
     <div className="flex items-center gap-x-3">
