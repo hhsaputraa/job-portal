@@ -36,7 +36,20 @@ const JobPublishAction = ({ disable, jobId, isPublished }: JobPublishActionProps
       setisLoading(false);
     }
   };
-  const onDelete = () => {};
+  const onDelete = async () => {
+    try {
+      setisLoading(true);
+      await axios.delete(`/api/jobs/${jobId}`);
+      toast.success("job Deleted");
+      router.refresh();
+      return router.push("/admin/jobs");
+    } catch (error) {
+      toast.error("Something went Wrong");
+      console.log((error as Error)?.message);
+    } finally {
+      setisLoading(false);
+    }
+  };
   return (
     <div className="flex items-center gap-x-3">
       <Button variant={"outline"} onClick={onClick} disabled={disable || isLoading} size={"sm"}>
