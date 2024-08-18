@@ -27,7 +27,7 @@ export const GetJobs = async ({ title, categoryId, shiftTiming, workMode, yearsO
         attachments: true,
       },
       orderBy: {
-        createdAt: "desc",
+        CreatedAt: "desc",
       },
     };
 

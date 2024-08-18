@@ -27,7 +27,7 @@ const CompaniesOverviewPage = async () => {
     id: company.id,
     name: company.name ? company.name : "",
     logo: company.logo ? company.logo : "",
-    createdAt: company.CreatedAt ? format(company.CreatedAt.toLocaleDateString(), "MMMM do, yyyy") : "N/A",
+    createdAt: company.CreatedAt ? format(new Date(company.CreatedAt), "MMMM do, yyyy") : "N/A",
   }));
 
   return (
