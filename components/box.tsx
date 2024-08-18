@@ -8,7 +8,7 @@ interface BoxProps {
 }
 
 const Box = ({ children, classname }: BoxProps) => {
-  return <div className={cn("flex items-center justify-center w-full ", classname)}>{children}</div>;
+  return <div className={cn("flex items-center justify-between w-full ", classname)}>{children}</div>;
 };
 
 export default Box;
