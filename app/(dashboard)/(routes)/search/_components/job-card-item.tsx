@@ -1,7 +1,7 @@
 "use client";
 
 import { Company, Job } from "@prisma/client";
-import { Card } from "@/components/ui/card";
+import { Card, CardDescription } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import Box from "@/components/box";
 import { formatDistanceToNow } from "date-fns";
@@ -11,6 +11,7 @@ import { BookmarkCheck, BriefcaseBusiness, Currency, Layers, Loader2, Network } 
 import { cn, formattedString } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import { truncate } from "lodash";
 
 interface JobCardItemProps {
   job: Job;
@@ -80,6 +81,35 @@ const JobCardItem = ({ job, userId }: JobCardItemProps) => {
                 {formattedString(job.yearsOfExperience)}
               </div>
             )}
+          </Box>
+          {job.short_description && (
+            <CardDescription className="text-xs">
+              {truncate(job.short_description, {
+                length: 150,
+                omission: "...",
+              })}
+            </CardDescription>
+          )}
+
+          {job.tags.length > 0 && (
+            <Box classname="flex-wrap justify-start gap-1">
+              {job.tags.slice(0, 6).map((tag, i) => (
+                <p key={i} className="bg-gray-100 text-xs rounded-md px-2 py-[2px] font-semibold text-neutral-500">
+                  {tag}
+                </p>
+              ))}
+            </Box>
+          )}
+
+          <Box classname="gap-2 mt-auto">
+            <Link href={`/search/${job.id}`} className="w-full">
+              <Button className="w-full border-customGreen-500 text-customGreen-500 hover:bg-transparent hover:text-customGreen-600" variant={"outline"}>
+                Details
+              </Button>
+            </Link>
+            <Button className="w-full text-white hover:bg-customGreen-800 bg-customGreen-800/90" variant={"outline"}>
+              Saved
+            </Button>
           </Box>
         </div>
       </Card>
