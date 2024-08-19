@@ -7,8 +7,8 @@ import Box from "@/components/box";
 import { formatDistanceToNow } from "date-fns";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { BookmarkCheck, BriefcaseBusiness, Loader2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { BookmarkCheck, BriefcaseBusiness, Currency, Layers, Loader2, Network } from "lucide-react";
+import { cn, formattedString } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -57,7 +57,27 @@ const JobCardItem = ({ job, userId }: JobCardItemProps) => {
             {job.shiftTiming && (
               <div className="text-xs text-muted-foreground flex items-center">
                 <BriefcaseBusiness className="w-3 h-3 mr-1" />
-                {job.shiftTiming}
+                {formattedString(job.shiftTiming)}
+              </div>
+            )}
+            {job.workMode && (
+              <div className="text-xs text-muted-foreground flex items-center">
+                <Layers className="w-3 h-3 mr-1" />
+                {formattedString(job.workMode)}
+              </div>
+            )}
+
+            {job.hourlyRate && (
+              <div className="text-xs text-muted-foreground flex items-center">
+                <Currency className="w-3 h-3 mr-1" />
+                {formattedString(job.hourlyRate)}
+              </div>
+            )}
+
+            {job.yearsOfExperience && (
+              <div className="text-xs text-muted-foreground flex items-center">
+                <Network className="w-3 h-3 mr-1" />
+                {formattedString(job.yearsOfExperience)}
               </div>
             )}
           </Box>

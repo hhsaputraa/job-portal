@@ -1,6 +1,19 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
+
+export const formattedString = (input: string) => {
+  //split the strings based on the delimiter "-"
+
+  const parts = input.split("-");
+
+  //capitalize each word
+  const capitalized = parts.map((part) => {
+    return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+  });
+
+  return capitalized.join(" ");
+};
