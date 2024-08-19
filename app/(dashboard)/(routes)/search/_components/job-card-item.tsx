@@ -7,11 +7,14 @@ import Box from "@/components/box";
 import { formatDistanceToNow } from "date-fns";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { BookmarkCheck, BriefcaseBusiness, Currency, Layers, Loader2, Network } from "lucide-react";
+import { Bookmark, BookmarkCheck, BriefcaseBusiness, Currency, Layers, Loader2, Network } from "lucide-react";
 import { cn, formattedString } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { truncate } from "lodash";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 interface JobCardItemProps {
   job: Job;
@@ -26,8 +29,29 @@ const JobCardItem = ({ job, userId }: JobCardItemProps) => {
   const company = typeJob.company;
 
   const [isBookmarkLoading, setisBookmarkLoading] = useState(false);
-  const SavedUsersIcon = BookmarkCheck;
 
+  const isSavedByUser = userId && job.savedUsed?.includes(userId);
+  const SavedUsersIcon = isSavedByUser ? BookmarkCheck : Bookmark;
+  const router = useRouter();
+
+  const onClickSaveJob = async () => {
+    try {
+      setisBookmarkLoading(true);
+      if (isSavedByUser) {
+        await axios.patch(`/api/jobs/${job.id}/removeJobsToCollections`);
+        toast.success("Jobs Removed");
+      } else {
+        await axios.patch(`/api/jobs/${job.id}/saveJobsToCollections`);
+        toast.success("Jobs saved");
+      }
+      router.refresh();
+    } catch (error) {
+      toast.error("something went wrong");
+      console.log(`error : ${(error as Error)?.message}`);
+    } finally {
+      setisBookmarkLoading(false);
+    }
+  };
   return (
     <motion.div layout>
       <Card>
@@ -37,7 +61,14 @@ const JobCardItem = ({ job, userId }: JobCardItemProps) => {
             <p className="text-sm text-muted-foreground">{formatDistanceToNow(new Date(job.CreatedAt), { addSuffix: true })}</p>
 
             <Button variant={"ghost"} size={"icon"}>
-              {isBookmarkLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <SavedUsersIcon className={cn("w-4 h-4 ")} />}
+              {isBookmarkLoading ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <div onClick={onClickSaveJob}>
+                  {" "}
+                  <SavedUsersIcon className={cn("w-4 h-4 ", isSavedByUser ? "text-customGreen-500" : "text-muted-foreground")} />
+                </div>
+              )}
             </Button>
           </Box>
 
@@ -107,8 +138,8 @@ const JobCardItem = ({ job, userId }: JobCardItemProps) => {
                 Details
               </Button>
             </Link>
-            <Button className="w-full text-white hover:bg-customGreen-800 bg-customGreen-800/90" variant={"outline"}>
-              Saved
+            <Button className="w-full text-white hover:bg-customGreen-800 bg-customGreen-800/90 hover:text-white" variant={"outline"} onClick={onClickSaveJob}>
+              {isSavedByUser ? "Saved" : "Save For Later"}
             </Button>
           </Box>
         </div>
