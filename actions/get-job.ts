@@ -5,13 +5,14 @@ import { Job } from "@prisma/client";
 type GetJobs = {
   title?: string;
   categoryId?: string;
+  createdAtFilter: string;
   shiftTiming?: string;
   workMode?: string;
   yearsOfExperience?: string;
   savedJobs?: boolean;
 };
 
-export const GetJobs = async ({ title, categoryId, shiftTiming, workMode, yearsOfExperience, savedJobs }: GetJobs): Promise<Job[]> => {
+export const GetJobs = async ({ title, categoryId, createdAtFilter, shiftTiming, workMode, yearsOfExperience, savedJobs }: GetJobs): Promise<Job[]> => {
   const { userId } = auth();
 
   try {
@@ -46,6 +47,42 @@ export const GetJobs = async ({ title, categoryId, shiftTiming, workMode, yearsO
             },
           },
         ].filter(Boolean),
+      };
+    }
+
+    // check whether the createAtFillter is Provide or Not
+
+    if (createdAtFilter) {
+      const currentDate = new Date();
+      let startDate: Date;
+      switch (createdAtFilter) {
+        case "today":
+          startDate = new Date(currentDate);
+          break;
+
+        case "yesterday":
+          startDate = new Date(currentDate);
+          startDate.setDate(startDate.getDate() - 1);
+          break;
+
+        // case "thisweek":
+        //   startDate = new Date(currentDate);
+        //   startDate.setDate(startDate.getDate() - currentDate.getDay());
+        //   break;
+        case "lastweek":
+          startDate = new Date(currentDate);
+          startDate.setDate(startDate.getDate() - currentDate.getDay() - 7);
+          break;
+
+        case "thismonth":
+          startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+          break;
+
+        default:
+          startDate = new Date(0);
+      }
+      query.where.CreatedAt = {
+        gte: startDate,
       };
     }
 

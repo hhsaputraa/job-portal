@@ -3,6 +3,9 @@
 import { Bookmark, Compass, Home, List, User } from "lucide-react";
 import { usePathname } from "next/navigation";
 import SideBarRoutesItem from "./side-bar-route-item";
+import Box from "@/components/box";
+import { Separator } from "@/components/ui/separator";
+import DateFilter from "./date-filter";
 
 const adminRoutes = [
   {
@@ -48,6 +51,7 @@ const guestRoutes = [
 const SidebarRoutes = () => {
   const pathname = usePathname();
   const isAdminPage = pathname?.startsWith("/admin");
+  const isSearchPage = pathname?.startsWith("/search");
   const routes = isAdminPage ? adminRoutes : guestRoutes;
 
   return (
@@ -55,6 +59,16 @@ const SidebarRoutes = () => {
       {routes.map((route) => (
         <SideBarRoutesItem key={route.href} icon={route.icon} label={route.label} href={route.href} />
       ))}
+
+      {isSearchPage && (
+        <Box classname="px-4 py-4 items-start justify-start space-y-4 flex-col">
+          <Separator />
+          <h2 className="text-lg text-muted-foreground tracking-wide">Filters</h2>
+
+          {/* filter the data by createdAt */}
+          <DateFilter />
+        </Box>
+      )}
     </div>
   );
 };
