@@ -31,6 +31,24 @@ export const GetJobs = async ({ title, categoryId, shiftTiming, workMode, yearsO
       },
     };
 
+    if (typeof title !== "undefined" || typeof categoryId !== "undefined") {
+      query.where = {
+        AND: [
+          typeof title !== "undefined" && {
+            title: {
+              contains: title,
+              mode: "insensitive",
+            },
+          },
+          typeof categoryId !== "undefined" && {
+            categoryId: {
+              equals: categoryId,
+            },
+          },
+        ].filter(Boolean),
+      };
+    }
+
     //execute the query to fetch the job based on the constructed parameter
     const jobs = await db.job.findMany(query);
     return jobs;
