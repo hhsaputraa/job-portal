@@ -8,7 +8,7 @@ import { formatDistanceToNow } from "date-fns";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Bookmark, BookmarkCheck, BriefcaseBusiness, Currency, Layers, Loader2, Network } from "lucide-react";
-import { cn, formattedString } from "@/lib/utils";
+import { cn, formatHourlyRateLabel, formattedString } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { truncate } from "lodash";
@@ -20,6 +20,48 @@ interface JobCardItemProps {
   job: Job;
   userId: string | null;
 }
+
+const experienceData = [
+  {
+    value: "0_tier",
+    label: "Freshgraduate/Mahasiswa Tingkat Akhir",
+  },
+  {
+    value: "1_tier",
+    label: "1 - 2 tahun",
+  },
+  {
+    value: "2_tier",
+    label: "3 - 4 tahun",
+  },
+  {
+    value: "3_tier",
+    label: "Lebih dari 5 tahun",
+  },
+];
+
+const hourlyRate = [
+  {
+    value: "1-3_jt",
+    label: "1 - 3 juta",
+  },
+  {
+    value: "3-6_jt",
+    label: "3 - 6 juta",
+  },
+  {
+    value: "6jt_plus",
+    label: "lebih dari 6 juta",
+  },
+  {
+    value: "secompetitive",
+    label: "Gaji Kompetitif",
+  },
+  {
+    value: "secret",
+    label: "Diinformasikan setelah proses rekrutmen",
+  },
+];
 
 const JobCardItem = ({ job, userId }: JobCardItemProps) => {
   const typeJob = job as Job & {
@@ -51,6 +93,16 @@ const JobCardItem = ({ job, userId }: JobCardItemProps) => {
     } finally {
       setisBookmarkLoading(false);
     }
+  };
+
+  const getExperienceLabel = (value: string) => {
+    const experience = experienceData.find((exp) => exp.value === value);
+    return experience ? experience.label : "NA";
+  };
+
+  const getHourlyrateLabel = (value: string) => {
+    const hourlyratelabel = hourlyRate.find((hrl) => hrl.value === value);
+    return hourlyratelabel ? hourlyratelabel.label : "NA";
   };
   return (
     <motion.div layout>
@@ -98,18 +150,20 @@ const JobCardItem = ({ job, userId }: JobCardItemProps) => {
                 {formattedString(job.workMode)}
               </div>
             )}
-
+          </Box>
+          <Box>
             {job.hourlyRate && (
               <div className="text-xs text-muted-foreground flex items-center">
                 <Currency className="w-3 h-3 mr-1" />
-                {formattedString(job.hourlyRate)}
+                {formatHourlyRateLabel(getHourlyrateLabel(job.hourlyRate))}
               </div>
             )}
-
+          </Box>
+          <Box>
             {job.yearsOfExperience && (
               <div className="text-xs text-muted-foreground flex items-center">
                 <Network className="w-3 h-3 mr-1" />
-                {formattedString(job.yearsOfExperience)}
+                {formatHourlyRateLabel(getExperienceLabel(job.yearsOfExperience))}
               </div>
             )}
           </Box>

@@ -153,6 +153,28 @@ const SidebarRoutes = () => {
     router.push(url);
   };
 
+  const handleExperience = (experience: any[]) => {
+    const currentQueryParams = qs.parseUrl(window.location.href).query;
+    const updateQueryParams = {
+      ...currentQueryParams,
+      yearsOfExperience: experience,
+    };
+
+    const url = qs.stringifyUrl(
+      {
+        url: pathname,
+        query: updateQueryParams,
+      },
+      {
+        skipNull: true,
+        skipEmptyString: true,
+        arrayFormat: "comma",
+      }
+    );
+
+    router.push(url);
+  };
+
   return (
     <div className="flex flex-col w-full">
       {routes.map((route) => (
@@ -174,6 +196,10 @@ const SidebarRoutes = () => {
           <Separator />
           <h2 className="text-lg text-muted-foreground tracking-wide">Tipe</h2>
           <CheckBoxContainer data={workingModesData} onChange={handleWorkingModes} />
+
+          <Separator />
+          <h2 className="text-lg text-muted-foreground tracking-wide">Pengalaman</h2>
+          <CheckBoxContainer data={experienceData} onChange={handleExperience} />
         </Box>
       )}
     </div>

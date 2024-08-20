@@ -17,3 +17,8 @@ export const formattedString = (input: string) => {
 
   return capitalized.join(" ");
 };
+
+export const formatHourlyRateLabel = (label: string) => {
+  // Tidak mengubah apapun, hanya mengembalikan label seperti adanya
+  return label;
+};

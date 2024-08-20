@@ -103,6 +103,14 @@ export const GetJobs = async ({ title, categoryId, createdAtFilter, shiftTiming,
       };
     }
 
+    let formmatedYOExperience = yearsOfExperience?.split(",");
+
+    if (formmatedYOExperience && formmatedYOExperience.length > 0) {
+      query.where.yearsOfExperience = {
+        in: formmatedYOExperience,
+      };
+    }
+
     //execute the query to fetch the job based on the constructed parameter
     const jobs = await db.job.findMany(query);
     return jobs;
