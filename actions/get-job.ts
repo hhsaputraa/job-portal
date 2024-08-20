@@ -95,6 +95,14 @@ export const GetJobs = async ({ title, categoryId, createdAtFilter, shiftTiming,
       };
     }
 
+    let formmatedWorkingMode = workMode?.split(",");
+
+    if (formmatedWorkingMode && formmatedWorkingMode.length > 0) {
+      query.where.workMode = {
+        in: formmatedWorkingMode,
+      };
+    }
+
     //execute the query to fetch the job based on the constructed parameter
     const jobs = await db.job.findMany(query);
     return jobs;

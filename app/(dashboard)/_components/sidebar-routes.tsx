@@ -69,6 +69,40 @@ const ShiftTimingsData = [
   },
 ];
 
+const workingModesData = [
+  {
+    value: "onsite",
+    label: "On Site",
+  },
+  {
+    value: "remote",
+    label: "Remote",
+  },
+  {
+    value: "hybrid",
+    label: "Hybrid",
+  },
+];
+
+const experienceData = [
+  {
+    value: "0_tier",
+    label: "Freshgraduate/Mahasiswa Tingkat Akhir",
+  },
+  {
+    value: "1_tier",
+    label: "1 - 2 tahun",
+  },
+  {
+    value: "2_tier",
+    label: "3 - 4 tahun",
+  },
+  {
+    value: "3_tier",
+    label: "Lebih dari 5 tahun",
+  },
+];
+
 const SidebarRoutes = () => {
   const pathname = usePathname();
   const router = useRouter();
@@ -97,6 +131,28 @@ const SidebarRoutes = () => {
     router.push(url);
   };
 
+  const handleWorkingModes = (workingModes: any[]) => {
+    const currentQueryParams = qs.parseUrl(window.location.href).query;
+    const updateQueryParams = {
+      ...currentQueryParams,
+      workMode: workingModes,
+    };
+
+    const url = qs.stringifyUrl(
+      {
+        url: pathname,
+        query: updateQueryParams,
+      },
+      {
+        skipNull: true,
+        skipEmptyString: true,
+        arrayFormat: "comma",
+      }
+    );
+
+    router.push(url);
+  };
+
   return (
     <div className="flex flex-col w-full">
       {routes.map((route) => (
@@ -114,6 +170,10 @@ const SidebarRoutes = () => {
           <Separator />
           <h2 className="text-lg text-muted-foreground tracking-wide">Jenis Loker</h2>
           <CheckBoxContainer data={ShiftTimingsData} onChange={handleShiftTimingChange} />
+
+          <Separator />
+          <h2 className="text-lg text-muted-foreground tracking-wide">Tipe</h2>
+          <CheckBoxContainer data={workingModesData} onChange={handleWorkingModes} />
         </Box>
       )}
     </div>
