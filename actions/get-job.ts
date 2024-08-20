@@ -86,6 +86,15 @@ export const GetJobs = async ({ title, categoryId, createdAtFilter, shiftTiming,
       };
     }
 
+    //filter the data based on the shift timing
+    let formattedShiftTiming = shiftTiming?.split(",");
+
+    if (formattedShiftTiming && formattedShiftTiming.length > 0) {
+      query.where.shiftTiming = {
+        in: formattedShiftTiming,
+      };
+    }
+
     //execute the query to fetch the job based on the constructed parameter
     const jobs = await db.job.findMany(query);
     return jobs;
