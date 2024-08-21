@@ -4,11 +4,13 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import CategoriesList from "./_components/categories-list";
 import PageContent from "./_components/page-content";
+import AppliedFilters from "./_components/applied-filters";
 
 interface SearchProps {
   searchParams: {
     title: string;
     categoryId: string;
+    createdAtFilter: string;
     shiftTiming: string;
     workMode: string;
     yearsOfExperience: string;
@@ -39,7 +41,7 @@ const SearchPage = async ({ searchParams }: SearchProps) => {
         <CategoriesList categories={categories} />
 
         {/* applied fillter */}
-
+        <AppliedFilters categories={categories} />
         {/* page content */}
         <PageContent jobs={jobs} userId={userId} />
       </div>
