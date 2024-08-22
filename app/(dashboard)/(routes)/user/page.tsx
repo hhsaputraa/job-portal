@@ -5,6 +5,9 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import NameForm from "./_components/name-form";
 import { db } from "@/lib/db";
+import EmailForm from "./_components/email-form";
+import ContactForm from "./_components/contact-form";
+import ResumeForm from "./_components/resume-form";
 
 const ProfilePage = async () => {
   const { userId } = auth();
@@ -41,6 +44,9 @@ const ProfilePage = async () => {
         )}
 
         <NameForm initialData={profile} userId={userId} />
+        <EmailForm initialData={profile} userId={userId} />
+        <ContactForm initialData={profile} userId={userId} />
+        <ResumeForm initialData={profile} userId={userId} />
       </Box>
     </div>
   );

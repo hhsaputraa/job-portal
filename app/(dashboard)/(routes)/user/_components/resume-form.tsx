@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Attachment, Job } from "@prisma/client";
+import { Attachment, Job, Resumes, UserProfile } from "@prisma/client";
 import axios from "axios";
 import { File, ImageIcon, Loader2, Pencil, PlusCircle, X } from "lucide-react";
 import Image from "next/image";
@@ -16,9 +16,9 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 
-interface AttachmentsFormProps {
-  initialData: Job & { attachments: Attachment[] };
-  jobId: string;
+interface ResumeFormProps {
+  initialData: (UserProfile & { resumes: Resumes[] }) | null;
+  userId: string;
 }
 
 const formSchema = z.object({
@@ -30,33 +30,19 @@ const formSchema = z.object({
     .array(),
 });
 
-const AttachmentsForm = ({ initialData, jobId }: AttachmentsFormProps) => {
+const ResumeForm = ({ initialData, userId }: ResumeFormProps) => {
   const [isEditing, setisEditing] = useState(false);
   const [deletingId, setdeletingId] = useState<string | null>(null);
   const router = useRouter();
 
-  const initialAttachments = Array.isArray(initialData?.attachments)
-    ? initialData.attachments.map((attachment: any) => {
-        if (typeof attachment === "object" && attachment !== null && "url" in attachment && "name" in attachment) {
-          return { url: attachment.url, name: attachment.name };
-        }
-        return { url: "", name: "" };
-      })
-    : [];
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      attachments: initialAttachments,
-    },
-  });
+  const form = useForm<z.infer<typeof formSchema>>();
 
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
     try {
-      const response = await axios.post(`/api/jobs/${jobId}/attachments`, values);
+      const response = await axios.post(`/api/jobs/${userId}/attachments`, values);
       toast.success("job attachments update");
       toggleEditing();
       router.refresh();
@@ -67,20 +53,13 @@ const AttachmentsForm = ({ initialData, jobId }: AttachmentsFormProps) => {
   };
 
   const toggleEditing = () => setisEditing((current) => !current);
-  const onDelete = async (attachment: Attachment) => {
+  const onDelete = async (resume: Resumes) => {
     try {
-      setdeletingId(attachment.id);
-
-      // Update local state to immediately remove the deleted item from UI
-      form.setValue(
-        "attachments",
-        form.getValues("attachments").filter((item) => item.url !== attachment.url)
-      );
-
+      setdeletingId(resume.id);
       // Make the delete request to the server
-      await axios.delete(`/api/jobs/${jobId}/attachments/${attachment.id}`);
-
+      await axios.delete(`/api/jobs/${userId}/attachments/${resume.id}`);
       toast.success("Attachment Removed");
+      router.refresh();
     } catch (error) {
       console.log((error as Error)?.message);
       toast.error("Something went wrong");
@@ -91,9 +70,9 @@ const AttachmentsForm = ({ initialData, jobId }: AttachmentsFormProps) => {
   };
 
   return (
-    <div className="mt-6 border bg-neutral-100 rounded-md p-4">
+    <div className="mt-6 border flex-1 w-full rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Job Attachments
+        Your CV/Resume
         <Button onClick={toggleEditing} variant={"ghost"}>
           {isEditing ? (
             <>Cancel</>
@@ -108,7 +87,7 @@ const AttachmentsForm = ({ initialData, jobId }: AttachmentsFormProps) => {
       {/*  display the attachments if not editing*/}
       {!isEditing && (
         <div className="space-y-2">
-          {initialData.attachments.map((item) => (
+          {initialData?.resumes.map((item) => (
             <div key={item.url} className="flex items-center p-3 w-full bg-customGreen-100 border-customGreen-200 border text-customGreen-700 rounded-md">
               <File className="w-4 h-4 mr-2 " />
               <p className="text-xs w-full truncate">{item.name}</p>
@@ -172,4 +151,4 @@ const AttachmentsForm = ({ initialData, jobId }: AttachmentsFormProps) => {
   );
 };
 
-export default AttachmentsForm;
+export default ResumeForm;
