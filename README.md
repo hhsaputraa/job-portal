@@ -1,3 +1,3 @@
 i hope i consistent to finish this project
 
-sori hari ini sibuk real life bro
+besok deh pasti lanjutin ni dikit lagi kelar
