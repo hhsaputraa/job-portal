@@ -1,13 +1,19 @@
 "use client";
 
+import Banner from "@/components/Banner";
 import Box from "@/components/box";
 import CustomBreadCrumb from "@/components/custom-bread-crumb";
 import Preview from "@/components/preview";
+import { ApplyModal } from "@/components/ui/apply-modal";
 import { Button } from "@/components/ui/button";
 import { Attachment, Company, Job, Resumes, UserProfile } from "@prisma/client";
+import axios from "axios";
 import { FileIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 interface JobDetailPageContentProps {
   job: Job & { company: Company | null; attachments: Attachment[] };
@@ -16,8 +22,32 @@ interface JobDetailPageContentProps {
 }
 
 const JobDetailPageContent = ({ job, jobId, userProfile }: JobDetailPageContentProps) => {
+  const [isLoading, setisLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
+
+  const onApplied = async () => {
+    setisLoading(true);
+    try {
+      const response = await axios.patch(`/api/users/${userProfile?.userId}/appliedJobs`, jobId);
+
+      //send the mail to user
+    } catch (error) {
+      console.log((error as Error)?.message);
+      toast.error("something went wrong..");
+    } finally {
+      setOpen(false);
+      setisLoading(false);
+      router.refresh();
+    }
+  };
   return (
     <>
+      <ApplyModal isOpen={open} onClose={() => setOpen(false)} onConfirm={onApplied} loading={isLoading} userProfile={userProfile} />
+
+      {userProfile && userProfile?.appliedJobs?.some((appliedJob) => appliedJob.jobId === jobId) && (
+        <Banner variant={"success"} label="Thank you for applying! your application has benn received, and we're reviewing it carefully. We'll be in touch soon with an update" />
+      )}
       <Box classname="mt-4">
         <CustomBreadCrumb breadCrumbItem={[{ label: "Search", link: "/search" }]} breadCrumbPage={job?.title !== undefined ? job.title : ""} />
       </Box>
@@ -52,7 +82,9 @@ const JobDetailPageContent = ({ job, jobId, userProfile }: JobDetailPageContentP
           {userProfile ? (
             <>
               {!userProfile.appliedJobs.some((appliedJobs) => appliedJobs.jobId === jobId) ? (
-                <Button className="text-sm bg-customGreen-700 hover:bg-customGreen-900">Apply</Button>
+                <Button className="text-sm bg-customGreen-700 hover:bg-customGreen-900 hover:shadow-sm" onClick={() => setOpen(true)}>
+                  Apply
+                </Button>
               ) : (
                 <Button className="text-sm text-customGreen-700 hover:bg-customGreen-900 hover:text-white hover:shadow-sm" variant={"outline"}>
                   Already Applied
