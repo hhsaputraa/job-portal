@@ -32,6 +32,12 @@ const JobDetailPageContent = ({ job, jobId, userProfile }: JobDetailPageContentP
       const response = await axios.patch(`/api/users/${userProfile?.userId}/appliedJobs`, jobId);
 
       //send the mail to user
+      await axios.post("api/thankyou", {
+        fullName: userProfile?.fullName,
+        email: userProfile?.email,
+      });
+
+      toast.success("Job Applied");
     } catch (error) {
       console.log((error as Error)?.message);
       toast.error("something went wrong..");
