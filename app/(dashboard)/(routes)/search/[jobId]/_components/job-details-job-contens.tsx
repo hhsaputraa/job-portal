@@ -2,8 +2,10 @@
 
 import Box from "@/components/box";
 import CustomBreadCrumb from "@/components/custom-bread-crumb";
+import Preview from "@/components/preview";
 import { Button } from "@/components/ui/button";
 import { Attachment, Company, Job, Resumes, UserProfile } from "@prisma/client";
+import { FileIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -64,6 +66,31 @@ const JobDetailPageContent = ({ job, jobId, userProfile }: JobDetailPageContentP
           )}
         </div>
       </Box>
+      {/* description */}
+      <Box classname="flex-col my-4 items-start justify-start px-4 gap-2">
+        <h2 className="text-lg font-semibold">Deskription :</h2>
+        <p className="font-sans">{job?.short_description}</p>
+      </Box>
+      {job?.description && (
+        <Box>
+          <Preview value={job.description} />
+        </Box>
+      )}
+
+      {job?.attachments && job?.attachments.length > 0 && (
+        <Box classname="flex-col my-4 items-start justify-start px-4 font-sans ">
+          <h2 className="text-lg font-semibold">Attachment :</h2>
+          <p>Download the attachment to know more about the job</p>
+          {job.attachments.map((item) => (
+            <div key={item.id} className="space-y-3">
+              <Link href={item.url} target="_blank" download className="flex items-center gap-1 text-customGreen-500">
+                <FileIcon className="w-4 h-4 mr-2" />
+                <p>{item.name}</p>
+              </Link>
+            </div>
+          ))}
+        </Box>
+      )}
     </>
   );
 };
