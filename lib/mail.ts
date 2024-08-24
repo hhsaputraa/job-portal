@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import handler from "handlebars";
+import handlebars from "handlebars";
 import toast from "react-hot-toast";
 import { text } from "stream/consumers";
 
@@ -18,8 +18,8 @@ export const sendMail = async ({ to, name, subject, body }: { to: string; name: 
     const textResult = await transport.verify();
     console.log(text);
   } catch (error) {
-    console.log(error);
-    toast.error((error as Error)?.message);
+    console.log((error as Error)?.message);
+    toast.error("something went wrong..");
     return;
   }
 
@@ -32,7 +32,7 @@ export const sendMail = async ({ to, name, subject, body }: { to: string; name: 
     });
     return sendResult;
   } catch (error) {
-    console.log(error);
-    toast.error((error as Error)?.message);
+    console.log((error as Error)?.message);
+    toast.error("something went wrong..");
   }
 };

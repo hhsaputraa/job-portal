@@ -32,7 +32,7 @@ const JobDetailPageContent = ({ job, jobId, userProfile }: JobDetailPageContentP
       const response = await axios.patch(`/api/users/${userProfile?.userId}/appliedJobs`, jobId);
 
       //send the mail to user
-      await axios.post("api/thankyou", {
+      await axios.post("/api/thankyou", {
         fullName: userProfile?.fullName,
         email: userProfile?.email,
       });

@@ -7,13 +7,13 @@ export const POST = async (req: Request) => {
   const response = await sendMail({
     to: email,
     name: fullName,
-    subject: " Thank you for applying",
-    body: "job has been applied",
+    subject: "thankyou for apply",
+    body: "job has been apply",
   });
 
   if (response?.messageId) {
-    return NextResponse.json("Mail Delivered", { status: 200 });
+    return NextResponse.json("mail delivered", { status: 200 });
   } else {
-    return new NextResponse("Mail not send", { status: 401 });
+    return new NextResponse("mail not send", { status: 401 });
   }
 };
