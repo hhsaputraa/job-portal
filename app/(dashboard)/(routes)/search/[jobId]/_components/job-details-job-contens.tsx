@@ -2,6 +2,7 @@
 
 import Box from "@/components/box";
 import CustomBreadCrumb from "@/components/custom-bread-crumb";
+import { Button } from "@/components/ui/button";
 import { Attachment, Company, Job, Resumes, UserProfile } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
@@ -42,6 +43,25 @@ const JobDetailPageContent = ({ job, jobId, userProfile }: JobDetailPageContentP
               <p className="text-muted-foreground text-sm font-semibold">{job?.company?.name}</p>
             </div>
           </Link>
+        </div>
+
+        {/* action Button */}
+        <div>
+          {userProfile ? (
+            <>
+              {!userProfile.appliedJobs.some((appliedJobs) => appliedJobs.jobId === jobId) ? (
+                <Button className="text-sm bg-customGreen-700 hover:bg-customGreen-900">Apply</Button>
+              ) : (
+                <Button className="text-sm text-customGreen-700 hover:bg-customGreen-900 hover:text-white hover:shadow-sm" variant={"outline"}>
+                  Already Applied
+                </Button>
+              )}
+            </>
+          ) : (
+            <Link href={"/user"}>
+              <Button className="text-sm px-8 bg-customGreen-700 hover:bg-customGreen-900 hover:shadow-sm">Update Profile</Button>
+            </Link>
+          )}
         </div>
       </Box>
     </>
