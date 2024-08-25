@@ -1,4 +1,4 @@
-import { sendMail } from "@/lib/mail";
+import { compileThankYouEmailTemplate, sendMail } from "@/lib/mail";
 import { NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {
@@ -8,7 +8,7 @@ export const POST = async (req: Request) => {
     to: email,
     name: fullName,
     subject: "thankyou for apply",
-    body: "job has been apply",
+    body: compileThankYouEmailTemplate(fullName),
   });
 
   if (response?.messageId) {

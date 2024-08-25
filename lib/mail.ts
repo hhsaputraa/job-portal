@@ -2,6 +2,7 @@ import nodemailer from "nodemailer";
 import handlebars from "handlebars";
 import toast from "react-hot-toast";
 import { text } from "stream/consumers";
+import { ThankYouTemplate } from "./designs/thank-you";
 
 export const sendMail = async ({ to, name, subject, body }: { to: string; name: string; subject: string; body: string }) => {
   const { SMTP_PASSWORD, SMTP_EMAIL } = process.env;
@@ -35,4 +36,14 @@ export const sendMail = async ({ to, name, subject, body }: { to: string; name: 
     console.log((error as Error)?.message);
     toast.error("something went wrong..");
   }
+};
+
+export const compileThankYouEmailTemplate = (name: string) => {
+  const template = handlebars.compile(ThankYouTemplate);
+
+  const htmlBody = template({
+    name: name,
+  });
+
+  return htmlBody;
 };
