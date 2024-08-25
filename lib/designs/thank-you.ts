@@ -37,8 +37,8 @@ export const ThankYouTemplate = `<!DOCTYPE html>
     <div class="container">
         <h1>Terima Kasih Sudah Melamar!</h1>
         <p>Halo {{ name }},</p>
-        <p>Terima kasih atas ketertarikan Anda untuk melamar di JobsSukabumi. Kami telah menerima lamaran Anda dan sedang meninjau berkas Anda.</p>
-        <p>Kami menghargai waktu yang Anda luangkan untuk melamar ke perusahaan kami. Proses seleksi mungkin akan memakan waktu beberapa minggu, dan kami akan segera menghubungi Anda jika ada informasi lebih lanjut yang diperlukan atau untuk tahap selanjutnya.</p>
+        <p>Terima kasih atas ketertarikan Anda untuk melamar lewat situs JobsSukabumi. Kami telah menerima lamaran Anda dan sedang meninjau berkas Anda.</p>
+        <p>Kami menghargai waktu yang Anda luangkan untuk melamar ke perusahaan kamu minati. Proses seleksi mungkin akan memakan waktu beberapa minggu, dan kami akan segera menghubungi Anda jika ada informasi lebih lanjut yang diperlukan atau untuk tahap selanjutnya.</p>
         <p>Jika Anda memiliki pertanyaan, jangan ragu untuk menghubungi kami</p>
         <p>Salam hangat,</p>
         <p>Admin JobsSukabumi</p>

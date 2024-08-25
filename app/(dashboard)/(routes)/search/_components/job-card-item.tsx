@@ -131,7 +131,7 @@ const JobCardItem = ({ job, userId }: JobCardItemProps) => {
             </div>
             <div className="w-full">
               <p className="text-stone-700 font-semibold text-base w-full truncate">{job.title}</p>
-              <Link href={`/company/${company?.id}`} className="text-xs text-customGreen-500 w-full truncate">
+              <Link href={`/companies/${company?.id}`} className="text-xs text-customGreen-500 w-full truncate">
                 {company?.name}
               </Link>
             </div>

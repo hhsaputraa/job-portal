@@ -5,7 +5,7 @@ import { Job } from "@prisma/client";
 type GetJobs = {
   title?: string;
   categoryId?: string;
-  createdAtFilter: string;
+  createdAtFilter?: string;
   shiftTiming?: string;
   workMode?: string;
   yearsOfExperience?: string;
