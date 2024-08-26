@@ -3,9 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Company, Job } from "@prisma/client";
+import axios from "axios";
 import { Loader2, Plus } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
+import TabContentSection from "./tab-content-section";
 
 interface CompanyDetailContentPageProps {
   userId: string | null;
@@ -16,12 +20,31 @@ interface CompanyDetailContentPageProps {
 const CompanyDetailContentPage = ({ userId, company, jobs }: CompanyDetailContentPageProps) => {
   const isFollower = userId && company?.followers?.includes(userId);
   const [isLoading, setisLoading] = useState(false);
-  const onClickAddRemoveFollowers = async () => {};
+  const router = useRouter();
+  const onClickAddRemoveFollowers = async () => {
+    try {
+      setisLoading(true);
+      if (isFollower) {
+        await axios.patch(`/api/companies/${company?.id}/removeFollower`);
+        toast.success("Un-follow");
+      } else {
+        await axios.patch(`/api/companies/${company?.id}/addFollower`);
+        toast.success("Following");
+      }
+      router.refresh();
+    } catch (error) {
+      console.log("Error :", error);
+      toast.error((error as Error)?.message);
+    } finally {
+      setisLoading(false);
+    }
+  };
+
   return (
     <div className="w-full rounded-2xl bg-white p-4 z-50 -mt-8">
       <div className="flex-col w-full px-4">
         {/* company details */}
-        <div className="w-full flex items-center justify-between -mt-12">
+        <div className="w-full flex items-center justify-between">
           <div className="flex items-end justify-end space-x-4">
             {company?.logo && (
               <div className="aspect-square w-auto bg-white h-32 rounded-2xl border flex items-center justify-center relative overflow-hidden p-3">
@@ -36,13 +59,13 @@ const CompanyDetailContentPage = ({ userId, company, jobs }: CompanyDetailConten
                 <p className="text-muted-foreground text-sm">{`(${company?.followers?.length}) following`}</p>
               </div>
 
-              <p className="text-sm text-muted-foreground">leveraging technology to provide better services</p>
+              <p className="text-sm text-muted-foreground">lorem</p>
 
               <div className="flex items-center gap-2 flex-wrap">
-                <p className="border px-2 py-1 text-sm text-muted-foreground whitespace-nowrap rounded-lg">Management Constulting</p>
-                <p className="border px-2 py-1 text-sm text-muted-foreground whitespace-nowrap rounded-lg">Management Constulting</p>
-                <p className="border px-2 py-1 text-sm text-muted-foreground whitespace-nowrap rounded-lg">Management Constulting</p>
-                <p className="border px-2 py-1 text-sm text-muted-foreground whitespace-nowrap rounded-lg">b2b</p>
+                <p className="border px-2 py-1 text-sm text-muted-foreground whitespace-nowrap rounded-lg">ipsum</p>
+                <p className="border px-2 py-1 text-sm text-muted-foreground whitespace-nowrap rounded-lg">dolor</p>
+                <p className="border px-2 py-1 text-sm text-muted-foreground whitespace-nowrap rounded-lg">shit</p>
+                <p className="border px-2 py-1 text-sm text-muted-foreground whitespace-nowrap rounded-lg">amet</p>
               </div>
             </div>
           </div>
@@ -61,12 +84,16 @@ const CompanyDetailContentPage = ({ userId, company, jobs }: CompanyDetailConten
                 ) : (
                   <React.Fragment>
                     <Plus className="w-4 h-4 mr-2" />
+                    Follow
                   </React.Fragment>
                 )}
               </React.Fragment>
             )}
           </Button>
         </div>
+
+        {/* tab content */}
+        <TabContentSection userId={userId} jobs={jobs} company={company} />
       </div>
     </div>
   );

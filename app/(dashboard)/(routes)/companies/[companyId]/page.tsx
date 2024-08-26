@@ -1,4 +1,3 @@
-import { GetJobs } from "@/actions/get-job";
 import Box from "@/components/box";
 import CustomBreadCrumb from "@/components/custom-bread-crumb";
 import { db } from "@/lib/db";
@@ -20,7 +19,17 @@ const CompanyDetailPage = async ({ params }: { params: { companyId: string } }) 
     redirect("/");
   }
 
-  const jobs = await GetJobs({});
+  const jobs = await db.job.findMany({
+    where: {
+      companyId: params.companyId,
+    },
+    include: {
+      company: true,
+    },
+    orderBy: {
+      CreatedAt: "desc",
+    },
+  });
 
   return (
     <div className="flex-col">
