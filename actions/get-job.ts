@@ -111,6 +111,12 @@ export const GetJobs = async ({ title, categoryId, createdAtFilter, shiftTiming,
       };
     }
 
+    if (savedJobs) {
+      query.where.savedUsed = {
+        has: userId,
+      };
+    }
+
     //execute the query to fetch the job based on the constructed parameter
     const jobs = await db.job.findMany(query);
     return jobs;
