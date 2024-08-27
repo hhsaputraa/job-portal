@@ -41,11 +41,11 @@ const CategoryForm = ({ initialData, jobId, options }: CategoryFormProps) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const response = await axios.patch(`/api/jobs/${jobId}`, values);
-      toast.success("job update");
+      toast.success("Berhasil Diupdate");
       toggleEditing();
       router.refresh();
     } catch (error) {
-      toast.error("Something when wrong");
+      toast.error("Terjadi Kesalahan");
     }
   };
 
@@ -56,7 +56,7 @@ const CategoryForm = ({ initialData, jobId, options }: CategoryFormProps) => {
     <div className="mt-6 border bg-neutral-100 rounded-md p-4">
       {" "}
       <div className="font-medium flex items-center justify-between">
-        job category
+        Kategori Pekerjaan
         <Button onClick={toggleEditing} variant={"ghost"}>
           {isEditing ? (
             <>Batal</>
@@ -69,7 +69,7 @@ const CategoryForm = ({ initialData, jobId, options }: CategoryFormProps) => {
         </Button>
       </div>
       {/*  display the categoryId if not editing*/}
-      {!isEditing && <p className={cn("text-sm mt-2", !initialData?.categoryId && "text-neutral-500 italic")}>{seletedOption?.label || "No category"}</p>}
+      {!isEditing && <p className={cn("text-sm mt-2", !initialData?.categoryId && "text-neutral-500 italic")}>{seletedOption?.label || "Belum Memasukan Kategori "}</p>}
       {/* on editing mode display the input */}
       {isEditing && (
         <Form {...form}>
@@ -80,7 +80,7 @@ const CategoryForm = ({ initialData, jobId, options }: CategoryFormProps) => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <ComboBox options={options} heading="Categories" {...field} />
+                    <ComboBox options={options} heading="Kategori" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -89,7 +89,7 @@ const CategoryForm = ({ initialData, jobId, options }: CategoryFormProps) => {
 
             <div className="flex items-center gap-x-4">
               <Button disabled={!isValid || isSubmitting} type="submit">
-                Save
+                Simpan
               </Button>
             </div>
           </form>

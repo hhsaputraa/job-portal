@@ -41,8 +41,8 @@ const JobCreatePage = () => {
   return (
     <div className="max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6">
       <div>
-        <h1 className="text-2xl">Nama Pekerjaan</h1>
-        <p className="text-sm text-neutral-500"> what would you like to name your job? Don&apos;t worry you can change this later</p>
+        <h1 className="text-2xl">Form Tambah Loker</h1>
+        <p className="text-sm text-neutral-500">masukan nama pekerjaan</p>
         {/* form */}
 
         <Form {...form}>
@@ -53,11 +53,11 @@ const JobCreatePage = () => {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>job title</FormLabel>
+                  <FormLabel>Nama Pekerjaan</FormLabel>
                   <FormControl>
-                    <Input disabled={isSubmitting} placeholder="e.gsss" {...field} />
+                    <Input disabled={isSubmitting} placeholder="Contoh : Barista" {...field} />
                   </FormControl>
-                  <FormDescription>role of this job</FormDescription>
+                  <FormDescription></FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -65,11 +65,11 @@ const JobCreatePage = () => {
             <div className="flex items-center gap-x-2">
               <Link href={"/admin/jobs"}>
                 <Button type="button" variant={"ghost"}>
-                  Cancel
+                  Batal
                 </Button>
               </Link>
               <Button type="submit" disabled={!isValid || isSubmitting}>
-                Continue
+                Tambah
               </Button>
             </div>
           </form>

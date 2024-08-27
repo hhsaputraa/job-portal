@@ -33,7 +33,7 @@ const ComboBox = ({ options, value, onChange, heading }: ComboBoxProps) => {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" role="combobox" aria-expanded={open} className="w-full justify-between">
-          {value ? options.find((option) => option.value === value)?.label : "Select option..."}
+          {value ? options.find((option) => option.value === value)?.label : "Pilih...."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -41,7 +41,7 @@ const ComboBox = ({ options, value, onChange, heading }: ComboBoxProps) => {
         <Command>
           <div className="w-full px-2 py-1 flex items-center border rounded-md">
             <Search className="mr-2 h-4 w-4 min-w-4" />
-            <input type="text" placeholder="Cari Kategori" onChange={handleSearchTerm} className="flex-1 w-full outline-none text-sm py-1" />
+            <input type="text" placeholder="Cari..." onChange={handleSearchTerm} className="flex-1 w-full outline-none text-sm py-1" />
           </div>
           <CommandList>
             <CommandGroup heading={heading}>

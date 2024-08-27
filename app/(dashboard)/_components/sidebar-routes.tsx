@@ -1,6 +1,6 @@
 "use client";
 
-import { Bookmark, Compass, Home, List, User } from "lucide-react";
+import { Bookmark, BriefcaseBusiness, Building2, Home, Search, User } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import SideBarRoutesItem from "./side-bar-route-item";
 import Box from "@/components/box";
@@ -11,20 +11,20 @@ import qs from "query-string";
 
 const adminRoutes = [
   {
-    icon: List,
-    label: "Jobs",
+    icon: BriefcaseBusiness,
+    label: "Loker",
     href: "/admin/jobs",
   },
   {
-    icon: List,
-    label: "Companies",
+    icon: Building2,
+    label: "Nama Perusahaan",
     href: "/admin/companies",
   },
-  {
-    icon: Compass,
-    label: "Analytics",
-    href: "/admin/analytics",
-  },
+  // {
+  //   icon: Compass,
+  //   label: "Analytics",
+  //   href: "/admin/analytics",
+  // },
 ];
 
 const guestRoutes = [
@@ -34,8 +34,8 @@ const guestRoutes = [
     href: "/",
   },
   {
-    icon: Compass,
-    label: "Search",
+    icon: Search,
+    label: "Eksplor",
     href: "/search",
   },
   {

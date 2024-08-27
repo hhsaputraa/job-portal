@@ -24,7 +24,7 @@ export const columns: ColumnDef<JobsColumns>[] = [
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          Title
+          Nama Pekerjaan
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -35,7 +35,7 @@ export const columns: ColumnDef<JobsColumns>[] = [
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          Published
+          Dibagikan
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -50,7 +50,7 @@ export const columns: ColumnDef<JobsColumns>[] = [
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          Category
+          Kategori
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -61,7 +61,7 @@ export const columns: ColumnDef<JobsColumns>[] = [
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          Company
+          Perusahaan
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -72,7 +72,7 @@ export const columns: ColumnDef<JobsColumns>[] = [
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          Date
+          Waktu
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -93,13 +93,13 @@ export const columns: ColumnDef<JobsColumns>[] = [
             <Link href={`/admin/jobs/${id}`}>
               <DropdownMenuItem>
                 <Pencil className="w-4 h-4 mr-2" />
-                Edit
+                Ubah
               </DropdownMenuItem>
             </Link>
             <Link href={`/admin/jobs/${id}/applicants`}>
               <DropdownMenuItem>
                 <Eye className="w-4 h-4 mr-2" />
-                Applicant
+                Pendaftar
               </DropdownMenuItem>
             </Link>
           </DropdownMenuContent>

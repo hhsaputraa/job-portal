@@ -73,14 +73,14 @@ const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
       <Link href={"/admin/jobs"}>
         <div className="flex items-center gap-3 text-sm text-neutral-500">
           <ArrowLeft className="w-4 h-4" />
-          Back
+          kembali
         </div>
       </Link>
       {/* title */}
       <div className="flex items-center justify-between my-4">
         <div className="flex flex-col gap-y-2">
-          <h1 className="text-2xl font-medium">Job Setup</h1>
-          <span className="text-sm text-neutral-500">Complete all fields {completionText}</span>
+          <h1 className="text-2xl font-medium">Data Lowongan Pekerjaan</h1>
+          <span className="text-sm text-neutral-500">Wajib Diisi {completionText}</span>
         </div>
         {/* action button */}
         <JobPublishAction jobId={params.jobId} isPublished={job.isPublished} disable={!isComplete} />
@@ -97,7 +97,7 @@ const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
           {/* title */}
           <div className="flex items-center gap-x-2">
             <IconBadge icon={LayoutDashboard} />
-            <h2 className="text-xl text-neutral-700">Customize your job</h2>
+            <h2 className="text-xl text-neutral-700">Isi Form</h2>
           </div>
 
           {/* title form */}

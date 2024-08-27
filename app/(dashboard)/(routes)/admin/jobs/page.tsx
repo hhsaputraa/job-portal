@@ -42,7 +42,7 @@ const JobsPageOverview = async () => {
         <Link href={"/admin/create"}>
           <Button>
             <Plus className="w-5 h-5 mr-2" />
-            New Job
+            Tambah Loker
           </Button>
         </Link>
       </div>
