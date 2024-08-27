@@ -11,6 +11,12 @@ import ResumeForm from "./_components/resume-form";
 import { DataTable } from "@/components/ui/data-table";
 import { AppliedJobsColums, columns } from "./_components/column";
 import { format } from "date-fns";
+import React from "react";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import { truncate } from "lodash";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Eye } from "lucide-react";
 
 const ProfilePage = async () => {
   const { userId } = auth();
@@ -64,6 +70,17 @@ const ProfilePage = async () => {
     appliedAt: job.appliedAt ? format(new Date(job.appliedAt), "MMMM do, yyyy") : "",
   }));
 
+  const followedCompanies = await db.company.findMany({
+    where: {
+      followers: {
+        has: userId,
+      },
+    },
+    orderBy: {
+      CreatedAt: "desc",
+    },
+  });
+
   return (
     <div className="flex-col p-4 md:p-8 items-center justify-center flex">
       <Box>
@@ -87,11 +104,48 @@ const ProfilePage = async () => {
 
       <Box classname="flex-col items-start justify-start mt-12 ">
         <h2 className="text-2xl text-muted-foreground font-semibold">Applied Job</h2>
+
+        <div className="w-full mt-6">
+          <DataTable columns={columns} searchKey="company" data={formattedJobs} />
+        </div>
       </Box>
 
-      <div className="w-full mt-6">
-        <DataTable columns={columns} searchKey="company" data={formattedJobs} />
-      </div>
+      <Box classname="flex-col items-start justify-start mt-12">
+        <h2 className="text-2xl text-muted-foreground font-semibold">Followed Companies</h2>
+        <div className="mt-6 w-full grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-6 gap-2">
+          {followedCompanies.length === 0 ? (
+            <p>No Companies followed yet</p>
+          ) : (
+            <React.Fragment>
+              {followedCompanies.map((com) => (
+                <Card className="p-3 space-y-2 relative" key={com.id}>
+<div className="w-full flex items-center justify-end">
+<Link href={`/companies/${com.id}`}>
+                    <Button variant={"ghost"} size={"icon"}>
+                      <Eye className="w-4 h-4 " />
+                    </Button>
+                  </Link>
+</div>
+                  {com.logo && (
+                    <div className="w-full h-24 flex item-center justify-center relative overflow-hidden">
+                      <Image fill alt="Logo" src={com.logo} className="object-contain w-full h-full" />
+                    </div>
+                  )}
+                  <CardTitle className="text-lg">{com?.name}</CardTitle>
+                  {com.description && (
+                    <CardDescription>
+                      {truncate(com?.description, {
+                        length: 80,
+                        omission: "...",
+                      })}
+                    </CardDescription>
+                  )}
+                </Card>
+              ))}
+            </React.Fragment>
+          )}
+        </div>
+      </Box>
     </div>
   );
 };
