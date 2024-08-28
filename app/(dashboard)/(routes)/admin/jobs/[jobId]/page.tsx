@@ -76,7 +76,7 @@ const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
           kembali
         </div>
       </Link>
-      {/* title */}
+      {/* BAGIAN ATAS FORM PEKERJAAN */}
       <div className="flex items-center justify-between my-4">
         <div className="flex flex-col gap-y-2">
           <h1 className="text-2xl font-medium">Data Lowongan Pekerjaan</h1>
@@ -88,22 +88,22 @@ const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
 
       {/* Warning before publishing */}
 
-      {!job.isPublished && <Banner variant={"warning"} label="this job is unpublish" />}
+      {!job.isPublished && <Banner variant={"warning"} label="Loker Belum dibagikan" />}
 
       {/* container layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
         {/* left container */}
         <div>
-          {/* title */}
+          {/* NAMA PEKERJAAN */}
           <div className="flex items-center gap-x-2">
             <IconBadge icon={LayoutDashboard} />
             <h2 className="text-xl text-neutral-700">Isi Form</h2>
           </div>
 
-          {/* title form */}
+          {/* NAMA */}
           <TitleForm initialData={job} jobId={job.id} />
 
-          {/* CATEGORY FORM */}
+          {/* KATEGORI */}
 
           <CategoryForm
             initialData={job}
@@ -114,32 +114,32 @@ const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
             }))}
           />
 
-          {/* cover image */}
+          {/* GAMBAR SAMPUL */}
 
           <ImageForm initialData={job} jobId={job.id} />
 
-          {/* short desc job */}
+          {/* DESKRIPSI SINGKAT */}
           <ShortDescription initialData={job} jobId={job.id} />
 
-          {/* shift time */}
+          {/* Jenis Loker */}
           <ShiftTimingForm initialData={job} jobId={job.id} />
 
           {/* gaji form */}
           <GajiForm initialData={job} jobId={job.id} />
 
-          {/* tipe form */}
+          {/* Tipe Pekerjaan form */}
           <WorkModeForm initialData={job} jobId={job.id} />
 
           {/* pengalaman kerja form */}
           <WorkExperienceForm initialData={job} jobId={job.id} />
         </div>
 
-        {/* right container */}
+        {/* Bagian Kanan */}
         <div className="space-y-6">
           <div>
             <div className="flex items-center gap-x-2">
               <IconBadge icon={ListCheck} />
-              <h2 className="text-xl text-neutral-700">Job Requirement</h2>
+              <h2 className="text-xl text-neutral-700">Persyaratan Pekerjaan</h2>
             </div>
 
             <TagsForm initialData={job} jobId={job.id} />
@@ -147,10 +147,10 @@ const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
           <div>
             <div className="flex items-center gap-x-2">
               <IconBadge icon={Building2} />
-              <h2 className="text-xl text-neutral-700">Company Details</h2>
+              <h2 className="text-xl text-neutral-700">Rincian Perusahaan</h2>
             </div>
 
-            {/* companies details */}
+            {/* Rincian Perusahaan */}
             <CompanyForm
               initialData={job}
               jobId={job.id}
@@ -162,9 +162,9 @@ const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
           </div>
           <div className="flex items-center gap-x-2">
             <IconBadge icon={File} />
-            <h2 className="text-xl text-neutral-700">Job attachements</h2>
+            <h2 className="text-xl text-neutral-700">Lampiran pekerjaan</h2>
           </div>
-          {/* attachments form */}
+          {/* Lampiran pekerjaan */}
           <div className="col-span-2">
             <AttachmentsForm initialData={job} jobId={job.id} />
           </div>

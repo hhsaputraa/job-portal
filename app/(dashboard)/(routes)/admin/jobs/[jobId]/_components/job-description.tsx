@@ -45,11 +45,11 @@ const JobDescription = ({ initialData, jobId }: JobDescriptionProps) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const response = await axios.patch(`/api/jobs/${jobId}`, values);
-      toast.success("job update");
+      toast.success("Berhasil Update");
       toggleEditing();
       router.refresh();
     } catch (error) {
-      toast.error("Something when wrong");
+      toast.error("Terjadi Kesalahan");
     }
   };
 
@@ -58,7 +58,7 @@ const JobDescription = ({ initialData, jobId }: JobDescriptionProps) => {
   const handlePromptGeneration = async () => {
     try {
       setisPrompting(true);
-      const customPrompt = `could you please draft a job requirements document for the position of ${roleName}? The job description should include roles & responsibilities, key features, and details about the role.The required skills should include proficiency in ${skills}.Additionally, you can list any optional skill related to job.Thanks!`;
+      const customPrompt = `Bisakah Anda membuat dokumen persyaratan pekerjaan untuk posisi ${roleName}? Deskripsi pekerjaan harus mencakup peran & tanggung jawab, fitur utama, dan rincian tentang peran tersebut. Keterampilan yang diperlukan harus mencakup keahlian dalam ${skills}. Selain itu, Anda dapat mencantumkan keterampilan opsional yang terkait dengan pekerjaan tersebut. Terima kasih.`;
 
       await getGenerativeAIResponse(customPrompt).then((data) => {
         data = data.replace(/^'|'$/g, "");
@@ -69,20 +69,20 @@ const JobDescription = ({ initialData, jobId }: JobDescriptionProps) => {
       });
     } catch (error) {
       console.log(error);
-      toast.error("something went error");
+      toast.error("Terjadi Kesalahan");
     }
   };
 
   const onCopy = () => {
     navigator.clipboard.writeText(aiValue);
-    toast.success("copied to clipboard");
+    toast.success("disalin ke Klipbboard");
   };
 
   return (
     <div className="mt-6 border bg-neutral-100 rounded-md p-4">
       {" "}
       <div className="font-medium flex items-center justify-between">
-        job Description
+        Deskripsi Lengkap
         <Button onClick={toggleEditing} variant={"ghost"}>
           {isEditing ? (
             <>Batal</>
@@ -96,7 +96,7 @@ const JobDescription = ({ initialData, jobId }: JobDescriptionProps) => {
       </div>
       {!isEditing && (
         <div className={cn("text-sm mt-2", !initialData.description && "text-neutral-500 italic")}>
-          {!initialData.description && "No description"}
+          {!initialData.description && "Belum Diisi"}
           {!initialData.description && <Preview value={initialData.description ?? ""} />}
         </div>
       )}
@@ -122,7 +122,7 @@ const JobDescription = ({ initialData, jobId }: JobDescriptionProps) => {
               </>
             )}
           </div>
-          <p className="text-xs text-muted-foreground text-right">Note : Profession name & Required skills delimited by comma</p>
+          <p className="text-xs text-muted-foreground text-right">Catatan: Nama profesi & Keahlian yang dibutuhkan dibatasi dengan koma</p>
 
           {aiValue && (
             <div className="w-full h-96 max-h-96 rounded-md bg-white overflow-y-scroll p-3 relative mt-4 text-muted-foreground">

@@ -40,11 +40,11 @@ const TagsForm = ({ initialData, jobId }: TagsFormProps) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const response = await axios.patch(`/api/jobs/${jobId}`, values);
-      toast.success("job update");
+      toast.success("Berhasil Diupdate");
       toggleEditing();
       router.refresh();
     } catch (error) {
-      toast.error("Something when wrong");
+      toast.error("Terjadi Kesalahan");
     }
   };
 
@@ -53,7 +53,7 @@ const TagsForm = ({ initialData, jobId }: TagsFormProps) => {
   const handlePromptGeneration = async () => {
     try {
       setisPrompting(true);
-      const customPrompt = `generate an array of top 10 keyword related to the job profession "${prompt}". These keyword should encompass various aspects of the profession, including skills, responsibilities,tools, and technologies commonly associated with it. Aim for diverse set of keywords that accurately represent the breadht of the profession.Your output should be a list/array keywords.Just return me array alone.`;
+      const customPrompt = `Hasilkan array yang berisi 10 kata kunci terkait dengan profesi "${prompt}". Kata kunci ini harus mencakup berbagai aspek dari profesi tersebut, termasuk keterampilan, tanggung jawab, alat, dan teknologi yang umumnya terkait. Usahakan untuk menghasilkan kumpulan kata kunci yang beragam yang secara akurat mewakili luasnya profesi tersebut. Hasilkan hanya dalam bentuk daftar/array kata kunci. Kembalikan hanya array tersebut..`;
       await getGenerativeAIResponse(customPrompt).then((data) => {
         // check data is array or not
 
@@ -64,7 +64,7 @@ const TagsForm = ({ initialData, jobId }: TagsFormProps) => {
       });
     } catch (error) {
       console.log(error);
-      toast.error("something went error");
+      toast.error("Terjadi Kesalahan");
     }
   };
 
@@ -78,7 +78,7 @@ const TagsForm = ({ initialData, jobId }: TagsFormProps) => {
     <div className="mt-6 border bg-neutral-100 rounded-md p-4">
       {" "}
       <div className="font-medium flex items-center justify-between">
-        job tag
+        TAG
         <Button onClick={toggleEditing} variant={"ghost"}>
           {isEditing ? (
             <>Batal</>
@@ -100,7 +100,7 @@ const TagsForm = ({ initialData, jobId }: TagsFormProps) => {
               </div>
             ))
           ) : (
-            <p>No Tags</p>
+            <p>Tidak Ada Tags</p>
           )}
         </div>
       )}
@@ -108,7 +108,7 @@ const TagsForm = ({ initialData, jobId }: TagsFormProps) => {
       {isEditing && (
         <>
           <div className="flex items-center gap-2 my-2">
-            <input type="text" placeholder="e.g fullstack" value={prompt} onChange={(e) => setPrompt(e.target.value)} className="w-full p-2 rounded-md" />
+            <input type="text" placeholder="Contoh : Bartender" value={prompt} onChange={(e) => setPrompt(e.target.value)} className="w-full p-2 rounded-md" />
             {isPrompting ? (
               <>
                 <Button>
@@ -123,7 +123,7 @@ const TagsForm = ({ initialData, jobId }: TagsFormProps) => {
               </>
             )}
           </div>
-          <p className="text-xs text-muted-foreground text-right">note profession name alone enough to genreate the tag</p>
+          <p className="text-xs text-muted-foreground text-right">cukup ketik nama profesi saja untuk membuat tag</p>
 
           <div className="flex items-center gap-2 flex-wrap">
             {jobTags.length > 0 ? (
@@ -139,7 +139,7 @@ const TagsForm = ({ initialData, jobId }: TagsFormProps) => {
                 </div>
               ))
             ) : (
-              <p>No Tags</p>
+              <p>Tidak Ada Tags</p>
             )}
           </div>
           <div className="flex items-center gap-2 justify-end mt-4">
@@ -152,10 +152,10 @@ const TagsForm = ({ initialData, jobId }: TagsFormProps) => {
               }}
               disabled={isSubmitting}
             >
-              Clear all
+              Hapus Semua
             </Button>
             <Button type="submit" disabled={isSubmitting} onClick={() => onSubmit({ tags: jobTags })}>
-              Save
+              Simpan
             </Button>
           </div>
         </>

@@ -54,11 +54,11 @@ const WorkModeForm = ({ initialData, jobId }: WorkModeFormProps) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const response = await axios.patch(`/api/jobs/${jobId}`, values);
-      toast.success("job update");
+      toast.success("Berhasil Update");
       toggleEditing();
       router.refresh();
     } catch (error) {
-      toast.error("Something when wrong");
+      toast.error("Terjadi Kesalahan");
     }
   };
 
@@ -93,7 +93,7 @@ const WorkModeForm = ({ initialData, jobId }: WorkModeFormProps) => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <ComboBox options={options} heading="Categories" {...field} />
+                    <ComboBox options={options} heading="Tipe" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -102,7 +102,7 @@ const WorkModeForm = ({ initialData, jobId }: WorkModeFormProps) => {
 
             <div className="flex items-center gap-x-4">
               <Button disabled={!isValid || isSubmitting} type="submit">
-                Save
+                Simpan
               </Button>
             </div>
           </form>

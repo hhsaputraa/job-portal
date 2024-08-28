@@ -56,7 +56,7 @@ const CompanyForm = ({ initialData, jobId, options }: CompanyFormProps) => {
     <div className="mt-6 border bg-neutral-100 rounded-md p-4">
       {" "}
       <div className="font-medium flex items-center justify-between">
-        job created by
+        Dibuat Oleh
         <Button onClick={toggleEditing} variant={"ghost"}>
           {isEditing ? (
             <>Batal</>
@@ -69,7 +69,7 @@ const CompanyForm = ({ initialData, jobId, options }: CompanyFormProps) => {
         </Button>
       </div>
       {/*  display the companyId if not editing*/}
-      {!isEditing && <p className={cn("text-sm mt-2", !initialData?.companyId && "text-neutral-500 italic")}>{seletedOption?.label || "No Company"}</p>}
+      {!isEditing && <p className={cn("text-sm mt-2", !initialData?.companyId && "text-neutral-500 italic")}>{seletedOption?.label || "Belum Diisi"}</p>}
       {/* on editing mode display the input */}
       {isEditing && (
         <Form {...form}>
@@ -80,7 +80,7 @@ const CompanyForm = ({ initialData, jobId, options }: CompanyFormProps) => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <ComboBox options={options} heading="Companies" {...field} />
+                    <ComboBox options={options} heading="Perusahaan" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -89,7 +89,7 @@ const CompanyForm = ({ initialData, jobId, options }: CompanyFormProps) => {
 
             <div className="flex items-center gap-x-4">
               <Button disabled={!isValid || isSubmitting} type="submit">
-                Save
+                Simpan
               </Button>
             </div>
           </form>

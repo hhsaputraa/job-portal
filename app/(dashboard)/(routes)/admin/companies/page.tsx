@@ -36,7 +36,7 @@ const CompaniesOverviewPage = async () => {
         <Link href={"/admin/companies/create"}>
           <Button>
             <Plus className="w-5 h-5 mr-2" />
-            New Company
+            Tambah Perusahaan
           </Button>
         </Link>
       </div>

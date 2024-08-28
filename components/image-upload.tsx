@@ -45,7 +45,7 @@ const ImageUpload = ({ disabled, onChange, onRemove, value }: ImageUploadProps) 
         getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
           onChange(downloadUrl);
           setisLoading(false);
-          toast.success("Image Uploaded");
+          toast.success("Gambar Berhasil Diunggah");
         });
       }
     );
@@ -54,7 +54,7 @@ const ImageUpload = ({ disabled, onChange, onRemove, value }: ImageUploadProps) 
   const onDelete = () => {
     onRemove(value);
     deleteObject(ref(storage, value)).then(() => {
-      toast.success("Image Removed");
+      toast.success("Gambar Dihapus");
     });
   };
 
@@ -83,7 +83,7 @@ const ImageUpload = ({ disabled, onChange, onRemove, value }: ImageUploadProps) 
                 <label>
                   <div className="w-full h-full flex flex-col gap-2 items-center justify-center cursor-pointer text-neutral-500 ">
                     <ImagePlus className="w-10 h-10 " />
-                    <p>Upload an Image</p>
+                    <p>Unggah Gambar</p>
                   </div>
                   <input type="file" accept="image/*" className="w-0 h-0" onChange={onUpload} />
                 </label>

@@ -57,12 +57,12 @@ const AttachmentsForm = ({ initialData, jobId }: AttachmentsFormProps) => {
     console.log(values);
     try {
       const response = await axios.post(`/api/jobs/${jobId}/attachments`, values);
-      toast.success("job attachments update");
+      toast.success("Lampiran pekerjaan Diupdate");
       toggleEditing();
       router.refresh();
     } catch (error) {
       console.log((error as Error)?.message);
-      toast.error("Something when wrong");
+      toast.error("Terjadi Kesalahan");
     }
   };
 
@@ -80,10 +80,10 @@ const AttachmentsForm = ({ initialData, jobId }: AttachmentsFormProps) => {
       // Make the delete request to the server
       await axios.delete(`/api/jobs/${jobId}/attachments/${attachment.id}`);
 
-      toast.success("Attachment Removed");
+      toast.success("Lampiran Dihapus");
     } catch (error) {
       console.log((error as Error)?.message);
-      toast.error("Something went wrong");
+      toast.error("Terjadi Kesalahan");
     } finally {
       setdeletingId(null);
       router.refresh(); // Optionally refresh to ensure data consistency
@@ -93,14 +93,14 @@ const AttachmentsForm = ({ initialData, jobId }: AttachmentsFormProps) => {
   return (
     <div className="mt-6 border bg-neutral-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Job Attachments
+        Lampiran pekerjaan
         <Button onClick={toggleEditing} variant={"ghost"}>
           {isEditing ? (
-            <>Cancel</>
+            <>Batal</>
           ) : (
             <>
               <PlusCircle className="w-4 h-4 mr-2" />
-              add a file
+              tambah file
             </>
           )}
         </Button>
@@ -162,7 +162,7 @@ const AttachmentsForm = ({ initialData, jobId }: AttachmentsFormProps) => {
 
             <div className="flex items-center gap-x-4">
               <Button disabled={!isValid || isSubmitting} type="submit">
-                Save
+                Simpan
               </Button>
             </div>
           </form>

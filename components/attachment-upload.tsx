@@ -81,7 +81,7 @@ const AttachmentsUploads = ({ disabled, onChange, value }: AttachmentsUploadsPro
             <label className="w-full h-full flex items-center justify-center">
               <div className="flex gap-2 items-center justify-center cursor-pointer">
                 <FilePlus className="w-3 h-3 mr-2 " />
-                <p>Add File</p>
+                <p>Tambah File</p>
               </div>
               <input type="file" accept=".jpg,.jpeg,.png,.gif,.bmp,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.rtf,.odt" multiple className="w-0 h-0" onChange={onUpload} />
             </label>

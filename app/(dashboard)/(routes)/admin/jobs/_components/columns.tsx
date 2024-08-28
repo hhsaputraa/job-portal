@@ -99,7 +99,7 @@ export const columns: ColumnDef<JobsColumns>[] = [
             <Link href={`/admin/jobs/${id}/applicants`}>
               <DropdownMenuItem>
                 <Eye className="w-4 h-4 mr-2" />
-                Pendaftar
+                Lihat Pendaftar
               </DropdownMenuItem>
             </Link>
           </DropdownMenuContent>

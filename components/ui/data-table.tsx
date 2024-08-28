@@ -34,7 +34,7 @@ export function DataTable<TData, TValue>({ columns, data, searchKey }: DataTable
   return (
     <div>
       <div className="flex items-center py-4">
-        <Input placeholder={`"Filter ${searchKey}..."`} value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""} onChange={(event) => table.getColumn(searchKey)?.setFilterValue(event.target.value)} className="max-w-sm" />
+        <Input placeholder={`Cari...`} value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""} onChange={(event) => table.getColumn(searchKey)?.setFilterValue(event.target.value)} className="max-w-sm" />
       </div>
 
       <div className="rounded-md border">
@@ -60,7 +60,7 @@ export function DataTable<TData, TValue>({ columns, data, searchKey }: DataTable
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
+                  Tidak Ditemukan.
                 </TableCell>
               </TableRow>
             )}

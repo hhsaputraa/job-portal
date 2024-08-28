@@ -53,14 +53,14 @@ const ImageForm = ({ initialData, jobId }: ImageFormProps) => {
     <div className="mt-6 border bg-neutral-100 rounded-md p-4">
       {" "}
       <div className="font-medium flex items-center justify-between">
-        job cover image
+        Gambar
         <Button onClick={toggleEditing} variant={"ghost"}>
           {isEditing ? (
-            <>Cancel</>
+            <>Batal</>
           ) : (
             <>
               <Pencil className="w-4 h-4 mr-2" />
-              edit image
+              edit gambar
             </>
           )}
         </Button>
@@ -95,7 +95,7 @@ const ImageForm = ({ initialData, jobId }: ImageFormProps) => {
 
             <div className="flex items-center gap-x-4">
               <Button disabled={!isValid || isSubmitting} type="submit">
-                Save
+                Simpan
               </Button>
             </div>
           </form>

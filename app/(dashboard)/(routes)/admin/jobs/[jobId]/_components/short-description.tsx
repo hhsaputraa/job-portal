@@ -41,11 +41,11 @@ const ShortDescription = ({ initialData, jobId }: ShortDescriptionProps) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const response = await axios.patch(`/api/jobs/${jobId}`, values);
-      toast.success("job update");
+      toast.success("Berhasil Update");
       toggleEditing();
       router.refresh();
     } catch (error) {
-      toast.error("Something when wrong");
+      toast.error("Terjadi Kesalahan");
     }
   };
 
@@ -61,7 +61,7 @@ const ShortDescription = ({ initialData, jobId }: ShortDescriptionProps) => {
       });
     } catch (error) {
       console.log(error);
-      toast.error("something went error");
+      toast.error("Terjadi Kesalahan");
     }
   };
 
@@ -69,7 +69,7 @@ const ShortDescription = ({ initialData, jobId }: ShortDescriptionProps) => {
     <div className="mt-6 border bg-neutral-100 rounded-md p-4">
       {" "}
       <div className="font-medium flex items-center justify-between">
-        job Short Description
+        Deskripsi Singkat
         <Button onClick={toggleEditing} variant={"ghost"}>
           {isEditing ? (
             <>Batal</>
@@ -87,7 +87,7 @@ const ShortDescription = ({ initialData, jobId }: ShortDescriptionProps) => {
       {isEditing && (
         <>
           <div className="flex items-center gap-2 my-2">
-            <input type="text" placeholder="e.g fullstack" value={prompt} onChange={(e) => setPrompt(e.target.value)} className="w-full p-2 rounded-md" />
+            <input type="text" placeholder="Contoh : Admin Purchasing" value={prompt} onChange={(e) => setPrompt(e.target.value)} className="w-full p-2 rounded-md" />
             {isPrompting ? (
               <>
                 <Button>
@@ -102,7 +102,7 @@ const ShortDescription = ({ initialData, jobId }: ShortDescriptionProps) => {
               </>
             )}
           </div>
-          <p className="text-xs text-muted-foreground text-right">note profession name alone enough to genreate the tag</p>
+          <p className="text-xs text-muted-foreground text-right">cukup tuliskan nama profesinya saja</p>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
               <FormField
@@ -111,7 +111,7 @@ const ShortDescription = ({ initialData, jobId }: ShortDescriptionProps) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Textarea disabled={isSubmitting} placeholder="short description about the job" {...field} />
+                      <Textarea disabled={isSubmitting} placeholder="deskripsi singkat pekerjaan" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -120,7 +120,7 @@ const ShortDescription = ({ initialData, jobId }: ShortDescriptionProps) => {
 
               <div className="flex items-center gap-x-4">
                 <Button disabled={!isValid || isSubmitting} type="submit">
-                  Save
+                  Simpan
                 </Button>
               </div>
             </form>

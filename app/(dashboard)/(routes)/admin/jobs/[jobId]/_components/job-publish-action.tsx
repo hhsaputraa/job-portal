@@ -53,7 +53,7 @@ const JobPublishAction = ({ disable, jobId, isPublished }: JobPublishActionProps
   return (
     <div className="flex items-center gap-x-3">
       <Button variant={"outline"} onClick={onClick} disabled={disable || isLoading} size={"sm"}>
-        {isPublished ? "Unpublish" : "Publish"}
+        {isPublished ? "Tidak Dibagikan" : "Bagikan"}
       </Button>
 
       <Button variant={"destructive"} size={"icon"} disabled={isLoading} onClick={onDelete}>
