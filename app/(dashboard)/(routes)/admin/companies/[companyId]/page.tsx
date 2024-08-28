@@ -52,14 +52,14 @@ const CompanyEditPage = async ({ params }: { params: { companyId: string } }) =>
       <Link href={"/admin/companies"}>
         <div className="flex items-center gap-3 text-sm text-neutral-500">
           <ArrowLeft className="w-4 h-4" />
-          Back
+          kembali
         </div>
       </Link>
       {/* title */}
       <div className="flex items-center justify-between my-4">
         <div className="flex flex-col gap-y-2">
-          <h1 className="text-2xl font-medium">company Setup</h1>
-          <span className="text-sm text-neutral-500">Complete all fields {completionText}</span>
+          <h1 className="text-2xl font-medium">Halaman Detail Perusahaan</h1>
+          <span className="text-sm text-neutral-500">Lengkapi semua Bagian {completionText}</span>
         </div>
       </div>
 

@@ -31,7 +31,7 @@ const CompanyCreatePage = () => {
     try {
       const response = await axios.post("/api/companies", values);
       router.push(`/admin/companies/${response.data.id}`);
-      toast.success("Company name Created");
+      toast.success("Nama Perusahaan Dibuat");
     } catch (error) {
       console.log((error as Error)?.message);
       toast.error((error as Error)?.message);
@@ -42,8 +42,8 @@ const CompanyCreatePage = () => {
   return (
     <div className="max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6">
       <div>
-        <h1 className="text-2xl">Nama Perusahaan</h1>
-        <p className="text-sm text-neutral-500"> what would you like to name your company? Don&apos;t worry you can change this later</p>
+        <h1 className="text-2xl">Formulir Nama Perusahaan</h1>
+        <p className="text-sm text-neutral-500"> apa yang ingin Anda beri nama perusahaan Anda? Jangan khawatir.Anda dapat mengubahnya nanti</p>
         {/* form */}
 
         <Form {...form}>
@@ -54,11 +54,11 @@ const CompanyCreatePage = () => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Company name</FormLabel>
+                  <FormLabel>Nama Perusahaan</FormLabel>
                   <FormControl>
-                    <Input disabled={isSubmitting} placeholder="PT bongkar turret" {...field} />
+                    <Input disabled={isSubmitting} placeholder="contoh : PT bongkar turret" {...field} />
                   </FormControl>
-                  <FormDescription>name for this company</FormDescription>
+                  <FormDescription>nama untuk perusahaan ini</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -66,11 +66,11 @@ const CompanyCreatePage = () => {
             <div className="flex items-center gap-x-2">
               <Link href={"/admin/jobs"}>
                 <Button type="button" variant={"ghost"}>
-                  Cancel
+                  Batal
                 </Button>
               </Link>
               <Button type="submit" disabled={!isValid || isSubmitting}>
-                Continue
+                Selanjutnya
               </Button>
             </div>
           </form>
