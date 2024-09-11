@@ -1,12 +1,23 @@
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs/server";
-import { Plus } from "lucide-react";
+import { auth, currentUser } from "@clerk/nextjs/server";
+import { Plus, AlertTriangle } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { columns, CompanyColums } from "./_components/columns";
 import { format } from "date-fns";
 import { DataTable } from "@/components/ui/data-table";
+
+const AccessDenied = () => (
+  <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <AlertTriangle className="w-16 h-16 text-yellow-500 mb-4" />
+    <h1 className="text-2xl font-bold mb-2">Akses Ditolak</h1>
+    <p className="text-gray-600 mb-4">Maaf, Anda tidak memiliki izin untuk mengakses halaman ini.</p>
+    <Link href="/">
+      <Button variant="secondary">Kembali ke Beranda</Button>
+    </Link>
+  </div>
+);
 
 const CompaniesOverviewPage = async () => {
   const { userId } = auth();
@@ -14,10 +25,13 @@ const CompaniesOverviewPage = async () => {
     return redirect("/");
   }
 
+  // Check if the user is an admin
+  const user = await currentUser();
+  if (user?.publicMetadata?.role !== "admin") {
+    return <AccessDenied />;
+  }
+
   const companies = await db.company.findMany({
-    where: {
-      userId,
-    },
     orderBy: {
       CreatedAt: "desc",
     },
@@ -41,7 +55,7 @@ const CompaniesOverviewPage = async () => {
         </Link>
       </div>
 
-      {/* Datatable - list of job */}
+      {/* Datatable - list of companies */}
       <div className="mt-6">
         <DataTable columns={columns} data={formattedCompanies} searchKey="name" />
       </div>

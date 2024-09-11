@@ -1,12 +1,23 @@
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
-import { Plus } from "lucide-react";
+import { Plus, AlertTriangle } from "lucide-react";
 import Link from "next/link";
 import { columns, JobsColumns } from "./_components/columns";
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { format } from "date-fns";
+
+const AccessDenied = () => (
+  <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <AlertTriangle className="w-16 h-16 text-yellow-500 mb-4" />
+    <h1 className="text-2xl font-bold mb-2">Akses Ditolak</h1>
+    <p className="text-gray-600 mb-4">Maaf, Anda tidak memiliki izin untuk mengakses halaman ini.</p>
+    <Link href="/">
+      <Button variant="secondary">Kembali ke Beranda</Button>
+    </Link>
+  </div>
+);
 
 const JobsPageOverview = async () => {
   const { userId } = auth();
@@ -14,10 +25,13 @@ const JobsPageOverview = async () => {
     return redirect("/");
   }
 
+  // Check if the user is an admin
+  const user = await currentUser();
+  if (user?.publicMetadata?.role !== "admin") {
+    return <AccessDenied />;
+  }
+
   const jobs = await db.job.findMany({
-    where: {
-      userId,
-    },
     include: {
       category: true,
       company: true,
