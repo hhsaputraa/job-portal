@@ -17,7 +17,6 @@ export const PATCH = async (req: Request, { params }: { params: { jobId: string 
     const job = await db.job.findUnique({
       where: {
         id: jobId,
-        userId,
       },
     });
 
@@ -25,23 +24,26 @@ export const PATCH = async (req: Request, { params }: { params: { jobId: string 
       return new NextResponse("Job Not Found", { status: 404 });
     }
 
-    // update the job
+    // Check if the user has already saved this job
+    if (job.savedUsed && job.savedUsed.includes(userId)) {
+      return new NextResponse("Job already saved by this user", { status: 400 });
+    }
 
+    // Update the job
     const updatedData = {
       savedUsed: job.savedUsed ? { push: userId } : [userId],
     };
 
-    const updatedJobs = await db.job.update({
+    const updatedJob = await db.job.update({
       where: {
         id: jobId,
-        userId,
       },
       data: updatedData,
     });
 
-    return NextResponse.json(updatedJobs);
+    return NextResponse.json(updatedJob);
   } catch (error) {
-    console.log(`[JOB_PUBLISH_PATCH] : ${error}`);
-    return new NextResponse("internal server error", { status: 500 });
+    console.log(`[JOB_SAVE_PATCH] : ${error}`);
+    return new NextResponse("Internal server error", { status: 500 });
   }
 };

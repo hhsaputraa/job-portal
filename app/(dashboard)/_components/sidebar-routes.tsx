@@ -30,7 +30,7 @@ const adminRoutes = [
 const guestRoutes = [
   {
     icon: Home,
-    label: "Home",
+    label: "Beranda",
     href: "/",
   },
   {
@@ -40,12 +40,12 @@ const guestRoutes = [
   },
   {
     icon: User,
-    label: "Profile",
+    label: "Profil",
     href: "/user",
   },
   {
     icon: Bookmark,
-    label: "Saved Jobs",
+    label: "Disimpan",
     href: "/savedJobs",
   },
 ];
