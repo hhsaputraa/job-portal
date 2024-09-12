@@ -7,11 +7,8 @@ import qs from "query-string";
 
 const DateFilter = () => {
   const data = [
-    { value: "today", label: "Hari Ini" },
-    { value: "yesterday", label: "Kemarin" },
-    // { value: "thisweek", label: "Minggu Ini" },
-    { value: "lastweek", label: "Minggu Ini" },
-    { value: "thismonth", label: "Bulan Ini" },
+    { value: "newest", label: "Baru ditambahkan" },
+    { value: "oldest", label: "Terlama" },
   ];
 
   const router = useRouter();
@@ -21,7 +18,7 @@ const DateFilter = () => {
     const currentQueryParams = qs.parseUrl(window.location.href).query;
     const updatedQueryParams = {
       ...currentQueryParams,
-      createdAtFilter: value,
+      sortOrder: value,
     };
 
     const url = qs.stringifyUrl(
@@ -40,7 +37,7 @@ const DateFilter = () => {
   return (
     <Select onValueChange={(selected) => onChange(selected)}>
       <SelectTrigger className="w-48">
-        <SelectValue placeholder="Sortir berdasarkan waktu" />
+        <SelectValue placeholder="Urutkan berdasarkan" />
       </SelectTrigger>
       <SelectContent>
         {data.map((item) => (

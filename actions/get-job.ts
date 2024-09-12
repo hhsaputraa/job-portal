@@ -5,7 +5,7 @@ import { Job } from "@prisma/client";
 type GetJobs = {
   title?: string;
   categoryId?: string;
-  createdAtFilter?: string;
+  sortOrder?: string;
   shiftTiming?: string;
   workMode?: string;
   yearsOfExperience?: string;
@@ -20,7 +20,7 @@ type PaginatedJobsResult = {
   totalPages: number;
 };
 
-export const GetJobs = async ({ title, categoryId, createdAtFilter, shiftTiming, workMode, yearsOfExperience, savedJobs, page = 1, limit = 4 }: GetJobs): Promise<PaginatedJobsResult> => {
+export const GetJobs = async ({ title, categoryId, sortOrder, shiftTiming, workMode, yearsOfExperience, savedJobs, page = 1, limit = 4 }: GetJobs): Promise<PaginatedJobsResult> => {
   const { userId } = auth();
 
   try {
@@ -34,7 +34,7 @@ export const GetJobs = async ({ title, categoryId, createdAtFilter, shiftTiming,
         attachments: true,
       },
       orderBy: {
-        CreatedAt: "desc",
+        CreatedAt: "desc", // Default to newest first
       },
     };
 
@@ -56,40 +56,19 @@ export const GetJobs = async ({ title, categoryId, createdAtFilter, shiftTiming,
       };
     }
 
-    // check whether the createAtFillter is Provide or Not
-
-    if (createdAtFilter) {
-      const currentDate = new Date();
-      let startDate: Date;
-      switch (createdAtFilter) {
-        case "today":
-          startDate = new Date(currentDate);
+    // Handle sorting order
+    if (sortOrder) {
+      switch (sortOrder) {
+        case "newest":
+          query.orderBy = { CreatedAt: "desc" };
           break;
-
-        case "yesterday":
-          startDate = new Date(currentDate);
-          startDate.setDate(startDate.getDate() - 1);
+        case "oldest":
+          query.orderBy = { CreatedAt: "asc" };
           break;
-
-        // case "thisweek":
-        //   startDate = new Date(currentDate);
-        //   startDate.setDate(startDate.getDate() - currentDate.getDay());
-        //   break;
-        case "lastweek":
-          startDate = new Date(currentDate);
-          startDate.setDate(startDate.getDate() - currentDate.getDay() - 7);
-          break;
-
-        case "thismonth":
-          startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-          break;
-
         default:
-          startDate = new Date(0);
+          // Keep default sorting (newest first)
+          break;
       }
-      query.where.CreatedAt = {
-        gte: startDate,
-      };
     }
 
     //filter the data based on the shift timing

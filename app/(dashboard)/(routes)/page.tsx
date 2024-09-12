@@ -23,9 +23,7 @@ const DashboardHomePage = async () => {
       <Box classname="flex-col justify-center w-full space-y-4 mt-12">
         <h2 className="text-2xl md:text-4xl font-sans font-bold tracking-wide text-neutral-600">Jelajahi Pekerjaan Impianmu</h2>
 
-        <p className="text-2xl text-muted-foreground">
-          {jobs.length} + pekerjaan tersedia{""}
-        </p>
+        <p className="text-2xl text-muted-foreground">cari pekerjaanmu</p>
       </Box>
 
       <HomeSearchContainer />

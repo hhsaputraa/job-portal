@@ -40,7 +40,7 @@ const SaveJobsPage = async ({ searchParams }: SearchProps) => {
       </div>
 
       <div className="p-4">
-        <PageContent jobs={jobs} userId={userId} />
+        <PageContent jobs={jobs.jobs} userId={userId} />
       </div>
     </div>
   );
