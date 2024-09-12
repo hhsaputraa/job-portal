@@ -10,14 +10,20 @@ type GetJobs = {
   workMode?: string;
   yearsOfExperience?: string;
   savedJobs?: boolean;
+  page?: number;
+  limit?: number;
 };
 
-export const GetJobs = async ({ title, categoryId, createdAtFilter, shiftTiming, workMode, yearsOfExperience, savedJobs }: GetJobs): Promise<Job[]> => {
+type PaginatedJobsResult = {
+  jobs: Job[];
+  totalJobs: number;
+  totalPages: number;
+};
+
+export const GetJobs = async ({ title, categoryId, createdAtFilter, shiftTiming, workMode, yearsOfExperience, savedJobs, page = 1, limit = 4 }: GetJobs): Promise<PaginatedJobsResult> => {
   const { userId } = auth();
 
   try {
-    //initialize the query object with common options
-
     let query: any = {
       where: {
         isPublished: true,
@@ -117,11 +123,31 @@ export const GetJobs = async ({ title, categoryId, createdAtFilter, shiftTiming,
       };
     }
 
-    //execute the query to fetch the job based on the constructed parameter
+    // Add pagination
+    const skip = (page - 1) * limit;
+    query.skip = skip;
+    query.take = limit;
+
+    // Execute the query to fetch the paginated jobs
     const jobs = await db.job.findMany(query);
-    return jobs;
+
+    // Get total count of jobs (without pagination)
+    const totalJobs = await db.job.count({ where: query.where });
+
+    // Calculate total pages
+    const totalPages = Math.ceil(totalJobs / limit);
+
+    return {
+      jobs,
+      totalJobs,
+      totalPages,
+    };
   } catch (error) {
     console.log("[GET_JOBS]:", error);
-    return [];
+    return {
+      jobs: [],
+      totalJobs: 0,
+      totalPages: 0,
+    };
   }
 };

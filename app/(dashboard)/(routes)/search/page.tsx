@@ -5,6 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import CategoriesList from "./_components/categories-list";
 import PageContent from "./_components/page-content";
 import AppliedFilters from "./_components/applied-filters";
+import Pagination from "./_components/pagination";
 
 interface SearchProps {
   searchParams: {
@@ -14,6 +15,7 @@ interface SearchProps {
     shiftTiming: string;
     workMode: string;
     yearsOfExperience: string;
+    page: string;
   };
 }
 
@@ -25,11 +27,17 @@ const SearchPage = async ({ searchParams }: SearchProps) => {
   });
 
   const { userId } = auth();
-  const jobs = await GetJobs({ ...searchParams });
-  console.log(`Jobs Count : ${jobs.length}`);
-  // console.log(jobs);
+  const page = parseInt(searchParams.page || "1", 10);
+  const limit = 4; // 4 jobs per page
 
-  console.log(jobs, categories);
+  const { jobs, totalJobs, totalPages } = await GetJobs({
+    ...searchParams,
+    page,
+    limit,
+  });
+
+  console.log(`Jobs Count: ${jobs.length}, Total Jobs: ${totalJobs}, Total Pages: ${totalPages}`);
+
   return (
     <>
       <div className="px-6 pt-6 block md:hidden md:mb-0">
@@ -40,10 +48,14 @@ const SearchPage = async ({ searchParams }: SearchProps) => {
         {/* categories */}
         <CategoriesList categories={categories} />
 
-        {/* applied fillter */}
+        {/* applied filter */}
         <AppliedFilters categories={categories} />
+
         {/* page content */}
         <PageContent jobs={jobs} userId={userId} />
+
+        {/* pagination */}
+        <Pagination currentPage={page} totalPages={totalPages} searchParams={searchParams} />
       </div>
     </>
   );
