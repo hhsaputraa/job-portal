@@ -50,14 +50,14 @@ const TitleForm = ({ initialData, jobId }: TitleFormProps) => {
     <div className="mt-6 border bg-neutral-100 rounded-md p-4">
       {" "}
       <div className="font-medium flex items-center justify-between">
-        Nama Pekerjaan
+        Nama Pekerjaan *
         <Button onClick={toggleEditing} variant={"ghost"}>
           {isEditing ? (
             <>Batal</>
           ) : (
             <>
               <Pencil className="w-4 h-4 mr-2" />
-              Edit Nama
+              Ubah Nama
             </>
           )}
         </Button>

@@ -23,22 +23,22 @@ const CellActions = ({ id, fullName, email }: CellActionsProps) => {
     setIsLoading(true);
     try {
       await axios.post("/api/sendSelected", { email, fullName });
-      toast.success("Mail Sent");
+      toast.success("Email Terkirim");
       setIsLoading(false);
     } catch (error) {
       console.log(error);
-      toast.error("something went wrong..");
+      toast.error("Terjadi Kesalahan..");
     }
   };
   const sendRejected = async () => {
     setIsRejection(true);
     try {
       await axios.post("/api/sendRejected", { email, fullName });
-      toast.success("Mail Sent");
+      toast.success("Email Terkirim");
       setIsLoading(false);
     } catch (error) {
       console.log(error);
-      toast.error("something went wrong..");
+      toast.error("Terjadi Kesalahan..");
     }
   };
 

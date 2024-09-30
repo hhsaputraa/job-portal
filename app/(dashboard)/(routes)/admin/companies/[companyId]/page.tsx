@@ -70,7 +70,7 @@ const CompanyEditPage = async ({ params }: { params: { companyId: string } }) =>
           {/* title */}
           <div className="flex items-center gap-x-2">
             <IconBadge icon={LayoutDashboard} />
-            <h2 className="text-xl text-neutral-700">Customize your Company</h2>
+            <h2 className="text-xl text-neutral-700">Profil Perusahaan</h2>
           </div>
 
           {/* name form */}
@@ -86,7 +86,7 @@ const CompanyEditPage = async ({ params }: { params: { companyId: string } }) =>
           <div>
             <div className="flex items-center gap-x-2 ">
               <IconBadge icon={Network} />
-              <h2 className="text-xl">Company Social Contacts</h2>
+              <h2 className="text-xl">Kontak Sosial Media</h2>
             </div>
             {/* social form */}
             <CompanySocialContactForm initialData={company} companyId={company.id} />

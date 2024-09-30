@@ -80,7 +80,7 @@ const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
       <div className="flex items-center justify-between my-4">
         <div className="flex flex-col gap-y-2">
           <h1 className="text-2xl font-medium">Data Lowongan Pekerjaan</h1>
-          <span className="text-sm text-neutral-500">Wajib Diisi {completionText}</span>
+          <span className="text-sm text-neutral-500">(*) Wajib Diisi sebelum pekerjaan dibagikan {completionText}</span>
         </div>
         {/* action button */}
         <JobPublishAction jobId={params.jobId} isPublished={job.isPublished} disable={!isComplete} />

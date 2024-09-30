@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 
 const formSchema = z.object({
   // ganti text munculkan jika judul kerjaan tidak diisi
-  name: z.string().min(1, { message: "Company name cannot be empty" }),
+  name: z.string().min(1, { message: "Nama Perusahaan Tidak boleh kosong" }),
 });
 
 const CompanyCreatePage = () => {
@@ -42,8 +42,8 @@ const CompanyCreatePage = () => {
   return (
     <div className="max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6">
       <div>
-        <h1 className="text-2xl">Formulir Nama Perusahaan</h1>
-        <p className="text-sm text-neutral-500"> apa yang ingin Anda beri nama perusahaan Anda? Jangan khawatir.Anda dapat mengubahnya nanti</p>
+        <h1 className="text-2xl">Nama Perusahaan</h1>
+        <p className="text-sm text-neutral-500">Jangan khawatir.Anda dapat mengubahnya nanti</p>
         {/* form */}
 
         <Form {...form}>
@@ -58,7 +58,7 @@ const CompanyCreatePage = () => {
                   <FormControl>
                     <Input disabled={isSubmitting} placeholder="contoh : PT bongkar turret" {...field} />
                   </FormControl>
-                  <FormDescription>nama untuk perusahaan ini</FormDescription>
+                  <FormDescription>pastikan nama perusahaan terisi</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

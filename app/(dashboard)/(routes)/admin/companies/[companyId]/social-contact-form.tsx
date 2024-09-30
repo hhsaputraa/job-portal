@@ -55,11 +55,11 @@ const CompanySocialContactForm = ({ initialData, companyId }: CompanySocialConta
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const response = await axios.patch(`/api/companies/${companyId}`, values);
-      toast.success("company update");
+      toast.success("Berhasil Diupdate");
       toggleEditing();
       router.refresh();
     } catch (error) {
-      toast.error("Something when wrong");
+      toast.error("Terjadi Kesalahan..");
     }
   };
 
@@ -68,14 +68,14 @@ const CompanySocialContactForm = ({ initialData, companyId }: CompanySocialConta
     <div className="mt-6 border bg-neutral-100 rounded-md p-4">
       {" "}
       <div className="font-medium flex items-center justify-between">
-        company social contact
+        Social Kontak Perusahaan
         <Button onClick={toggleEditing} variant={"ghost"}>
           {isEditing ? (
-            <>Cancel</>
+            <>Batal</>
           ) : (
             <>
               <Pencil className="w-4 h-4 mr-2" />
-              edit name
+              Ubah
             </>
           )}
         </Button>
@@ -132,7 +132,7 @@ const CompanySocialContactForm = ({ initialData, companyId }: CompanySocialConta
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input disabled={isSubmitting} placeholder=" Mail sample : 'hr@bongkarturret.com'" {...field} />
+                    <Input disabled={isSubmitting} placeholder=" Contoh : 'hr@bongkarturret.com'" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -209,7 +209,7 @@ const CompanySocialContactForm = ({ initialData, companyId }: CompanySocialConta
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input disabled={isSubmitting} placeholder="Bagian" {...field} />
+                      <Input disabled={isSubmitting} placeholder="Provinsi" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -231,7 +231,7 @@ const CompanySocialContactForm = ({ initialData, companyId }: CompanySocialConta
 
             <div className="flex items-center gap-x-4">
               <Button disabled={!isValid || isSubmitting} type="submit">
-                Save
+                Simpan
               </Button>
             </div>
           </form>

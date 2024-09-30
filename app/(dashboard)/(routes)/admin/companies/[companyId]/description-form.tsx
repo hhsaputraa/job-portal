@@ -40,11 +40,11 @@ const CompanyDescriptionForm = ({ initialData, companyId }: CompanyDescriptionFo
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const response = await axios.patch(`/api/companies/${companyId}`, values);
-      toast.success("company update");
+      toast.success("Data Diupdate");
       toggleEditing();
       router.refresh();
     } catch (error) {
-      toast.error("Something when wrong");
+      toast.error("Terjadi Kesalahan..");
     }
   };
 
@@ -53,20 +53,20 @@ const CompanyDescriptionForm = ({ initialData, companyId }: CompanyDescriptionFo
     <div className="mt-6 border bg-neutral-100 rounded-md p-4">
       {" "}
       <div className="font-medium flex items-center justify-between">
-        company description
+        Deskripsi Perusahaan
         <Button onClick={toggleEditing} variant={"ghost"}>
           {isEditing ? (
-            <>Cancel</>
+            <>Batal</>
           ) : (
             <>
               <Pencil className="w-4 h-4 mr-2" />
-              edit name
+              Ubah
             </>
           )}
         </Button>
       </div>
       {/*  display the name if not editing*/}
-      {!isEditing && <p className={cn("text-sm mt-2", !initialData.description && "text-neutral-500 italic")}>{initialData.description || "No Description"}</p>}
+      {!isEditing && <p className={cn("text-sm mt-2", !initialData.description && "text-neutral-500 italic")}>{initialData.description || "Belum Diisi"}</p>}
       {/* on editing mode display the input */}
       {isEditing && (
         <Form {...form}>
@@ -77,7 +77,7 @@ const CompanyDescriptionForm = ({ initialData, companyId }: CompanyDescriptionFo
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Textarea disabled={isSubmitting} placeholder="e.g 'deskripsi perusahaan anda'" {...field} />
+                    <Textarea disabled={isSubmitting} placeholder="masukkan deskripsi perusahaan anda" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -86,7 +86,7 @@ const CompanyDescriptionForm = ({ initialData, companyId }: CompanyDescriptionFo
 
             <div className="flex items-center gap-x-4">
               <Button disabled={!isValid || isSubmitting} type="submit">
-                Save
+                Simpan
               </Button>
             </div>
           </form>

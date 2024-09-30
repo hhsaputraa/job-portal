@@ -25,7 +25,7 @@ export const columns: ColumnDef<ApplicantColumns>[] = [
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          Full Name
+          Nama Lengkap
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -47,7 +47,7 @@ export const columns: ColumnDef<ApplicantColumns>[] = [
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          Contact
+          Kontak
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -72,7 +72,7 @@ export const columns: ColumnDef<ApplicantColumns>[] = [
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          Date
+          Tanggal
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );

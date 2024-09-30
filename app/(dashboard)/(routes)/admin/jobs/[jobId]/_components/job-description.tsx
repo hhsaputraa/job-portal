@@ -82,7 +82,7 @@ const JobDescription = ({ initialData, jobId }: JobDescriptionProps) => {
     <div className="mt-6 border bg-neutral-100 rounded-md p-4">
       {" "}
       <div className="font-medium flex items-center justify-between">
-        Deskripsi Lengkap
+        Deskripsi Lengkap *
         <Button onClick={toggleEditing} variant={"ghost"}>
           {isEditing ? (
             <>Batal</>
@@ -94,20 +94,15 @@ const JobDescription = ({ initialData, jobId }: JobDescriptionProps) => {
           )}
         </Button>
       </div>
-      {!isEditing && (
-        <div className={cn("text-sm mt-2", !initialData.description && "text-neutral-500 italic")}>
-          {!initialData.description && "Belum Diisi"}
-          {!initialData.description && <Preview value={initialData.description ?? ""} />}
-        </div>
-      )}
+      {!isEditing && <div className={cn("text-sm mt-2", !initialData.description && "text-neutral-500 italic")}>{initialData.description ? <Preview value={initialData.description} /> : "Deskripsi belum diisi"}</div>}
       {/*  display the description if not editing*/}
       {/* on editing mode display the input */}
       {isEditing && (
         <>
           <div className="flex items-center gap-2 my-2">
-            <input type="text" placeholder="e.g fullstack" value={roleName} onChange={(e) => setRollName(e.target.value)} className="w-full p-2 rounded-md" />
+            <input type="text" placeholder="contoh : Teknisi" value={roleName} onChange={(e) => setRollName(e.target.value)} className="w-full p-2 rounded-md" />
 
-            <input type="text" placeholder="required skill set" value={skills} onChange={(e) => setSkills(e.target.value)} className="w-full p-2 rounded-md" />
+            <input type="text" placeholder="Skill Yang dibutuhkan" value={skills} onChange={(e) => setSkills(e.target.value)} className="w-full p-2 rounded-md" />
             {isPrompting ? (
               <>
                 <Button>
@@ -150,7 +145,7 @@ const JobDescription = ({ initialData, jobId }: JobDescriptionProps) => {
 
               <div className="flex items-center gap-x-4">
                 <Button disabled={!isValid || isSubmitting} type="submit">
-                  Save
+                  Simpan
                 </Button>
               </div>
             </form>

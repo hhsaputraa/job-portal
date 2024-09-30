@@ -100,7 +100,7 @@ const TagsForm = ({ initialData, jobId }: TagsFormProps) => {
               </div>
             ))
           ) : (
-            <p>Tidak Ada Tags</p>
+            <p>Tidak Ada Tag</p>
           )}
         </div>
       )}
@@ -139,7 +139,7 @@ const TagsForm = ({ initialData, jobId }: TagsFormProps) => {
                 </div>
               ))
             ) : (
-              <p>Tidak Ada Tags</p>
+              <p>Tidak Ada Tag</p>
             )}
           </div>
           <div className="flex items-center gap-2 justify-end mt-4">

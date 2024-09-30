@@ -23,14 +23,14 @@ const JobPublishAction = ({ disable, jobId, isPublished }: JobPublishActionProps
       if (isPublished) {
         //unpublish the job
         await axios.patch(`/api/jobs/${jobId}/unpublish`);
-        toast.success("job Un-Published");
+        toast.success("Lowongan Tidak Dibagikan");
       } else {
         await axios.patch(`/api/jobs/${jobId}/publish`);
-        toast.success("job Published");
+        toast.success("Lowongan Dibagikan");
       }
       router.refresh();
     } catch (error) {
-      toast.error("Something went Wrong");
+      toast.error("Terjadi Kesalahan");
       console.log((error as Error)?.message);
     } finally {
       setisLoading(false);
@@ -40,11 +40,11 @@ const JobPublishAction = ({ disable, jobId, isPublished }: JobPublishActionProps
     try {
       setisLoading(true);
       await axios.delete(`/api/jobs/${jobId}`);
-      toast.success("job Deleted");
+      toast.success("Dihapus");
       router.refresh();
       return router.push("/admin/jobs");
     } catch (error) {
-      toast.error("Something went Wrong");
+      toast.error("Terjadi Kesalahan");
       console.log((error as Error)?.message);
     } finally {
       setisLoading(false);

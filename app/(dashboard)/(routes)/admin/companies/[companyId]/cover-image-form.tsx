@@ -40,11 +40,11 @@ const CompanyCoverImageForm = ({ initialData, companyId }: CompanyCoverImageForm
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const response = await axios.patch(`/api/companies/${companyId}`, values);
-      toast.success("job update");
+      toast.success("Berhasil Diupdate");
       toggleEditing();
       router.refresh();
     } catch (error) {
-      toast.error("Something when wrong");
+      toast.error("terjadi Kesalahan..");
     }
   };
 
@@ -53,14 +53,14 @@ const CompanyCoverImageForm = ({ initialData, companyId }: CompanyCoverImageForm
     <div className="mt-6 border bg-neutral-100 rounded-md p-4">
       {" "}
       <div className="font-medium flex items-center justify-between">
-        company Cover Image
+        Foto Sampul Perusahaan
         <Button onClick={toggleEditing} variant={"ghost"}>
           {isEditing ? (
-            <>Cancel</>
+            <>Batal</>
           ) : (
             <>
               <Pencil className="w-4 h-4 mr-2" />
-              edit image
+              Ubah
             </>
           )}
         </Button>
@@ -95,7 +95,7 @@ const CompanyCoverImageForm = ({ initialData, companyId }: CompanyCoverImageForm
 
             <div className="flex items-center gap-x-4">
               <Button disabled={!isValid || isSubmitting} type="submit">
-                Save
+                Simpan
               </Button>
             </div>
           </form>

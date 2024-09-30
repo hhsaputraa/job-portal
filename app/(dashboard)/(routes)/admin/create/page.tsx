@@ -31,7 +31,7 @@ const JobCreatePage = () => {
     try {
       const response = await axios.post("/api/jobs", values);
       router.push(`/admin/jobs/${response.data.id}`);
-      toast.success("Job Created");
+      toast.success("Pekerjaan Baru Dibuat");
     } catch (error) {
       console.log((error as Error)?.message);
       //toast notif
