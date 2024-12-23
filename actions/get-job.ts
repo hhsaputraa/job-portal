@@ -20,7 +20,7 @@ type PaginatedJobsResult = {
   totalPages: number;
 };
 
-export const GetJobs = async ({ title, categoryId, sortOrder, shiftTiming, workMode, yearsOfExperience, savedJobs, page = 1, limit = 4 }: GetJobs): Promise<PaginatedJobsResult> => {
+export const GetJobs = async ({ title, categoryId, sortOrder, shiftTiming, workMode, yearsOfExperience, savedJobs, page = 1, limit = 10 }: GetJobs): Promise<PaginatedJobsResult> => {
   const { userId } = auth();
 
   try {

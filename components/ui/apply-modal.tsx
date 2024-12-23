@@ -39,7 +39,7 @@ export const ApplyModal = ({ isOpen, onClose, onConfirm, loading, userProfile }:
           </label>
 
           <div className="col-span-2 flex items-center justify-end text-sm text-muted-foreground">
-            Change your details <Link href={"/user"} className="text-purple-700 ml-2"></Link>
+            pastikan data sesuai sebelum mengirim <Link href={"/user"} className="text-purple-700 ml-2"></Link>
           </div>
         </div>
       </Box>

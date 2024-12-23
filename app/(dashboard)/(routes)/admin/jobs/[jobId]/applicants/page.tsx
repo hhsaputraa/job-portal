@@ -51,7 +51,7 @@ const JobApplicantsPage = async ({ params }: { params: { jobId: string } }) => {
     fullname: profile.fullName ? profile.fullName : "",
     email: profile.email ? profile.email : "",
     contact: profile.contact ? profile.contact : "",
-    appliedAt: profile.appliedJobs.find((job) => job.jobId === params.jobId)?.appliedAt ? format(new Date(profile.appliedJobs.find((job) => job.jobId === params.jobId)?.appliedAt ?? ""), "MMMM do, yyyy") : "",
+    appliedAt: profile.appliedJobs.find((job) => job.jobId === params.jobId)?.appliedAt ? format(new Date(profile.appliedJobs.find((job) => job.jobId === params.jobId)?.appliedAt ?? ""), "dd MMMM, yyyy") : "",
     resume: profile.resumes.find((res) => res.id === profile.activeResumeId)?.url ?? "",
     resumeName: profile.resumes.find((res) => res.id === profile.activeResumeId)?.name ?? "",
   }));

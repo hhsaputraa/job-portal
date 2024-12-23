@@ -15,7 +15,6 @@ const NavbarRoutes = () => {
   const isPlayerPage = pathname?.startsWith("/jobs");
   const isSearchPage = pathname?.startsWith("/search");
 
-  // Fungsi untuk memeriksa apakah user adalah admin
   const isAdmin = () => {
     return user?.publicMetadata?.role === "admin";
   };
@@ -40,7 +39,7 @@ const NavbarRoutes = () => {
             {isAdmin() && (
               <Link href={"/admin/jobs"}>
                 <Button variant={"outline"} size={"sm"} className="border-purple-700/20">
-                  DashBoard Admin
+                  Dashboard Admin
                 </Button>
               </Link>
             )}

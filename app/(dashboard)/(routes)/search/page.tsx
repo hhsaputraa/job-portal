@@ -28,7 +28,7 @@ const SearchPage = async ({ searchParams }: SearchProps) => {
 
   const { userId } = auth();
   const page = parseInt(searchParams.page || "1", 10);
-  const limit = 4; // 4 jobs per page
+  const limit = 10;
 
   const { jobs, totalJobs, totalPages } = await GetJobs({
     ...searchParams,

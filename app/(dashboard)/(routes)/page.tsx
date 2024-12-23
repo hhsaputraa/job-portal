@@ -28,9 +28,9 @@ const DashboardHomePage = async () => {
 
       <HomeSearchContainer />
 
-      <Box classname="relative overflow-hidden h-64 justify-center rounded-lg mt-12">
-        <Image alt="Home Banner" src={"/img/jobssukabumi-high-resolution-logo-transparent.png"} width={1000} height={240} className="object-cover rounded-lg" />
-      </Box>
+      {/* <Box classname="relative overflow-hidden h-64 justify-center rounded-lg mt-12">
+        <Image alt="Home Banner" src={"/img/jobssukabumi-high-resolution-logo-transparent.png"} width={250} height={250} className="object-cover rounded-lg" />
+      </Box> */}
     </div>
   );
 };

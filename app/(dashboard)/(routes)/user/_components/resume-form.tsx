@@ -123,8 +123,8 @@ const ResumeForm = ({ initialData, userId }: ResumeFormProps) => {
       {!isEditing && (
         <div className="space-y-2">
           {initialData?.resumes.map((item) => (
-            <div className="grid grid-cols-12 gap-2">
-              <div key={item.url} className="flex items-center p-3 w-full bg-customGreen-100 border-customGreen-200 border text-customGreen-700 rounded-md flex items-center col-span-10">
+            <div key={item.url} className="grid grid-cols-12 gap-2">
+              <div className="flex items-center p-3 w-full bg-customGreen-100 border-customGreen-200 border text-customGreen-700 rounded-md col-span-10">
                 <File className="w-4 h-4 mr-2 " />
                 <p className="text-xs w-full truncate">{item.name}</p>
                 {deletingId === item.id && (
