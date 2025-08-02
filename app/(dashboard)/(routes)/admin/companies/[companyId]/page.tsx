@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import Banner from "@/components/Banner";
 import IconBadge from "@/components/icon-badge";
 import { db } from "@/lib/db";
