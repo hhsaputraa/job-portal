@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
 import { Plus, AlertTriangle } from "lucide-react";

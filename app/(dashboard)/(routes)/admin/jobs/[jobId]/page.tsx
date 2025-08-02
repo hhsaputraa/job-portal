@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { ArrowLeft, Building2, File, LayoutDashboard, ListCheck } from "lucide-react";
@@ -18,6 +19,7 @@ import JobDescription from "./_components/job-description";
 import TagsForm from "./_components/tags-form";
 import CompanyForm from "./_components/company-form";
 import AttachmentsForm from "./_components/attachments-form";
+import exp from "constants";
 
 const JobDetailPage = async ({ params }: { params: { jobId: string } }) => {
   const validObjectIdRegex = /^[0-9a-fA-F]{24}$/;

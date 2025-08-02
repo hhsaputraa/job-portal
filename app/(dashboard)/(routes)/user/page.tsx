@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import Box from "@/components/box";
 import CustomBreadCrumb from "@/components/custom-bread-crumb";
 import { auth, currentUser } from "@clerk/nextjs/server";
