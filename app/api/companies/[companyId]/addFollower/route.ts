@@ -21,20 +21,25 @@ export const PATCH = async (req: Request, { params }: { params: { companyId: str
       },
     });
 
-    if (!companyId) {
-      return new NextResponse("Company Not Found", { status: 401 });
+    if (!company) {
+      return new NextResponse("Company Not Found", { status: 404 });
     }
 
-    //update the data
-    const updateData = {
-      followers: company?.followers ? { push: userId } : { userId },
-    };
+    // Cek apakah user sudah follow
+    if (company.followers && company.followers.includes(userId)) {
+      return new NextResponse("Already following", { status: 400 });
+    }
 
+    // Fix: update logic untuk MongoDB array
     const updatedCompany = await db.company.update({
       where: {
         id: companyId,
       },
-      data: updateData,
+      data: {
+        followers: {
+          push: userId, // MongoDB push syntax
+        },
+      },
     });
 
     return NextResponse.json(updatedCompany);

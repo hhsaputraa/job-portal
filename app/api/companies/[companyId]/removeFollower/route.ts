@@ -21,30 +21,28 @@ export const PATCH = async (req: Request, { params }: { params: { companyId: str
       },
     });
 
-    if (!companyId) {
-      return new NextResponse("Company Not Found", { status: 401 });
+    if (!company) {
+      return new NextResponse("Company Not Found", { status: 404 });
     }
 
-    //remove user id from the followers
-
-    const userIndex = company?.followers.indexOf(userId);
-
-    if (userIndex !== -1) {
-      const updatedCompany = await db.company.update({
-        where: {
-          id: companyId,
-        },
-        data: {
-          followers: {
-            set: company?.followers.filter((followerId) => followerId !== userId),
-          },
-        },
-      });
-
-      return new NextResponse(JSON.stringify(updatedCompany), { status: 200 });
-    } else {
-      return new NextResponse("user not found in followers", { status: 404 });
+    // Cek apakah user ada di followers
+    if (!company.followers || !company.followers.includes(userId)) {
+      return new NextResponse("Not following this company", { status: 400 });
     }
+
+    // Update untuk remove user dari followers
+    const updatedCompany = await db.company.update({
+      where: {
+        id: companyId,
+      },
+      data: {
+        followers: {
+          set: company.followers.filter((followerId) => followerId !== userId),
+        },
+      },
+    });
+
+    return NextResponse.json(updatedCompany);
   } catch (error) {
     console.log(`[COMPANY_PATCH] : ${error}`);
     return new NextResponse("Internal Server Error", { status: 500 });
