@@ -7,8 +7,6 @@ import Link from "next/link";
 import CellActions from "./cell-actions";
 import { ArrowUpDown, File } from "lucide-react";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
 export type ApplicantColumns = {
   id: string;
   fullname: string;
