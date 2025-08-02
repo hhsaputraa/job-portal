@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { GetJobs } from "@/actions/get-job";
 import Box from "@/components/box";
 import { db } from "@/lib/db";
