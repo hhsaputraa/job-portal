@@ -52,9 +52,7 @@ export default function Page() {
         <div className="w-1/2 bg-gradient-to-br from-emerald-700 to-teal-900 p-12 flex items-center justify-center">
           <div className="max-w-md w-full">
             <div className="text-center mb-10">
-               <div className="w-20 h-20 bg-white/10 border border-white/20 backdrop-blur-lg rounded-full flex items-center justify-center mx-auto mb-5 shadow-lg">
-                <Briefcase className="w-9 h-9 text-white" />
-              </div>
+               
               <h1 className="text-4xl font-bold text-white tracking-tight mb-2">JobsSukabumi</h1>
               <p className="text-teal-200 text-lg">Demo Accounts untuk Testing</p>
             </div>
@@ -100,10 +98,7 @@ export default function Page() {
         {/* KANAN: Form Sign In */}
         <div className="w-1/2 bg-slate-50 flex items-center justify-center p-12">
           <div className="w-full max-w-md">
-             <div className="text-left mb-8">
-              <h2 className="text-3xl font-bold text-slate-900 mb-2">Selamat Datang</h2>
-              <p className="text-slate-600">Silakan masuk untuk melanjutkan.</p>
-            </div>
+            
             <SignIn />
           </div>
         </div>
